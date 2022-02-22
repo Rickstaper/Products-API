@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Products_API.Migrations
 {
-    [DbContext(typeof(ApplicationContext))]
+    [DbContext(typeof(ProductsContext))]
     [Migration("20220221175057_DatabaseCreation")]
     partial class DatabaseCreation
     {

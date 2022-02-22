@@ -20,6 +20,7 @@ namespace Entities.Models
         public string OwnerName { get; set; }
 
         [ForeignKey(nameof(FridgeModel))]
+        [Column("Model_id")]
         public Guid FridgeModelId { get; set; }
         public FridgeModel FridgeModel { get; set; }
 

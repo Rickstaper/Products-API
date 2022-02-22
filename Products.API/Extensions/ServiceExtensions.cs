@@ -9,8 +9,8 @@ namespace Products_API.Extensions
     {
         public static void ConfigureSqlContext(this IServiceCollection service,
             IConfiguration configuration) =>
-            service.AddDbContext<ApplicationContext>(options =>
+            service.AddDbContext<ProductsContext>(options =>
             options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"), b =>
-            b.MigrationsAssembly("Products-API")));
+            b.MigrationsAssembly("Products.API")));
     }
 }
