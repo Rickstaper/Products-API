@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entities.Models
+namespace Products.Data.Models
 {
     public class Fridge
     {
@@ -24,6 +24,6 @@ namespace Entities.Models
         public Guid FridgeModelId { get; set; }
         public FridgeModel FridgeModel { get; set; }
 
-        public ICollection<FridgeProducts> FridgeProducts { get; set; }
+        public ICollection<FridgeProduct> FridgeProducts { get; set; }
     }
 }

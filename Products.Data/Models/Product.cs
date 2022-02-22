@@ -7,9 +7,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entities.Models
+namespace Products.Data.Models
 {
-    public class Products
+    [Table("products")]
+    public class Product
     {
         [Column("PoductId")]
         public Guid Id { get; set; }
@@ -20,6 +21,6 @@ namespace Entities.Models
         [DefaultValue(0)]
         public int DefaultQuantity { get; set; }
 
-        public ICollection<FridgeProducts> FridgeProducts { get; set; }
+        public ICollection<FridgeProduct> FridgeProducts { get; set; }
     }
 }

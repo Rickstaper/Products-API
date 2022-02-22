@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace Products.Contracts.ModelsContracts
 {
-    public interface IProductsRepository
+    public interface IFridgeProductRepository
     {
-
     }
 }

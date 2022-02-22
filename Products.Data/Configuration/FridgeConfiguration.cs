@@ -1,8 +1,9 @@
-﻿using Entities.Models;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Products.Data.Models;
 using System;
-namespace Products_API.Configuration
+
+namespace Products.Data.Configuration
 {
     public class FridgeConfiguration : IEntityTypeConfiguration<Fridge>
     {

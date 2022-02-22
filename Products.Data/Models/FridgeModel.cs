@@ -6,8 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entities.Models
+namespace Products.Data.Models
 {
+    [Table("fridge_model")]
     public class FridgeModel
     {
         [Column("FridgeModelId")]

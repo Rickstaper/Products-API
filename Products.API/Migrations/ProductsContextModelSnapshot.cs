@@ -4,16 +4,14 @@ using Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Products_API.Migrations
 {
     [DbContext(typeof(ProductsContext))]
-    [Migration("20220222070012_initialData")]
-    partial class initialData
+    partial class ProductsContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -79,7 +77,7 @@ namespace Products_API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("FridgeModels");
+                    b.ToTable("fridge_model");
 
                     b.HasData(
                         new
@@ -96,7 +94,7 @@ namespace Products_API.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Entities.Models.FridgeProducts", b =>
+            modelBuilder.Entity("Entities.Models.FridgeProduct", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -118,7 +116,7 @@ namespace Products_API.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("FridgeProducts");
+                    b.ToTable("fridge_products");
 
                     b.HasData(
                         new
@@ -137,7 +135,7 @@ namespace Products_API.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Entities.Models.Products", b =>
+            modelBuilder.Entity("Entities.Models.Product", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -153,7 +151,7 @@ namespace Products_API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Products");
+                    b.ToTable("products");
 
                     b.HasData(
                         new
@@ -181,7 +179,7 @@ namespace Products_API.Migrations
                     b.Navigation("FridgeModel");
                 });
 
-            modelBuilder.Entity("Entities.Models.FridgeProducts", b =>
+            modelBuilder.Entity("Entities.Models.FridgeProduct", b =>
                 {
                     b.HasOne("Entities.Models.Fridge", "Fridge")
                         .WithMany("FridgeProducts")
@@ -189,7 +187,7 @@ namespace Products_API.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Entities.Models.Products", "Product")
+                    b.HasOne("Entities.Models.Product", "Product")
                         .WithMany("FridgeProducts")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -210,7 +208,7 @@ namespace Products_API.Migrations
                     b.Navigation("Fridges");
                 });
 
-            modelBuilder.Entity("Entities.Models.Products", b =>
+            modelBuilder.Entity("Entities.Models.Product", b =>
                 {
                     b.Navigation("FridgeProducts");
                 });

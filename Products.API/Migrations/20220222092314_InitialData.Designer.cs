@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Products_API.Migrations
 {
     [DbContext(typeof(ProductsContext))]
-    [Migration("20220221175057_DatabaseCreation")]
-    partial class DatabaseCreation
+    [Migration("20220222092314_InitialData")]
+    partial class InitialData
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -29,7 +29,8 @@ namespace Products_API.Migrations
                         .HasColumnName("FidgeId");
 
                     b.Property<Guid>("FridgeModelId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("Model_id");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -44,6 +45,22 @@ namespace Products_API.Migrations
                     b.HasIndex("FridgeModelId");
 
                     b.ToTable("Fridges");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("6b572a70-94ce-4d15-9494-5248280c2ce3"),
+                            FridgeModelId = new Guid("5f390a10-94ce-4d15-9494-5248780c2ce3"),
+                            Name = "My fridge",
+                            OwnerName = "Anton Pupkin"
+                        },
+                        new
+                        {
+                            Id = new Guid("5a572a70-94ce-4d15-9494-5248280c2ce3"),
+                            FridgeModelId = new Guid("1b240a10-22ce-4d15-9494-5248780c2ce1"),
+                            Name = "JJ",
+                            OwnerName = "Artem Petrov"
+                        });
                 });
 
             modelBuilder.Entity("Entities.Models.FridgeModel", b =>
@@ -62,10 +79,24 @@ namespace Products_API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("FridgeModels");
+                    b.ToTable("fridge_model");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("5f390a10-94ce-4d15-9494-5248780c2ce3"),
+                            Name = "SAMSUNG 253 L Frost Free Double Door 3 Star Convertible Refrigerator  (Elegant Inox, RT28T3743S8/HL)",
+                            Year = 2020
+                        },
+                        new
+                        {
+                            Id = new Guid("1b240a10-22ce-4d15-9494-5248780c2ce1"),
+                            Name = "Whirlpool 240 L Frost Free Triple Door Refrigerator  (Magnum Steel, FP 263D PROTTON ROY MAGNUM STEEL(N))",
+                            Year = 2020
+                        });
                 });
 
-            modelBuilder.Entity("Entities.Models.FridgeProducts", b =>
+            modelBuilder.Entity("Entities.Models.FridgeProduct", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -87,10 +118,26 @@ namespace Products_API.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("FridgeProducts");
+                    b.ToTable("fridge_products");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("7f330a10-22ce-4d15-9494-5248780c2ce1"),
+                            FridgeId = new Guid("6b572a70-94ce-4d15-9494-5248280c2ce3"),
+                            ProductId = new Guid("c9d4c053-49b6-410c-bc78-2d54a9991870"),
+                            Quantity = 2
+                        },
+                        new
+                        {
+                            Id = new Guid("6f130a10-22ce-4d15-9494-5248780c2ce1"),
+                            FridgeId = new Guid("5a572a70-94ce-4d15-9494-5248280c2ce3"),
+                            ProductId = new Guid("3d490a70-94ce-4d15-9494-5248280c2ce3"),
+                            Quantity = 1
+                        });
                 });
 
-            modelBuilder.Entity("Entities.Models.Products", b =>
+            modelBuilder.Entity("Entities.Models.Product", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -106,7 +153,21 @@ namespace Products_API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Products");
+                    b.ToTable("products");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("c9d4c053-49b6-410c-bc78-2d54a9991870"),
+                            DefaultQuantity = 3,
+                            Name = "Butter"
+                        },
+                        new
+                        {
+                            Id = new Guid("3d490a70-94ce-4d15-9494-5248280c2ce3"),
+                            DefaultQuantity = 0,
+                            Name = "Apple"
+                        });
                 });
 
             modelBuilder.Entity("Entities.Models.Fridge", b =>
@@ -120,7 +181,7 @@ namespace Products_API.Migrations
                     b.Navigation("FridgeModel");
                 });
 
-            modelBuilder.Entity("Entities.Models.FridgeProducts", b =>
+            modelBuilder.Entity("Entities.Models.FridgeProduct", b =>
                 {
                     b.HasOne("Entities.Models.Fridge", "Fridge")
                         .WithMany("FridgeProducts")
@@ -128,7 +189,7 @@ namespace Products_API.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Entities.Models.Products", "Product")
+                    b.HasOne("Entities.Models.Product", "Product")
                         .WithMany("FridgeProducts")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -149,7 +210,7 @@ namespace Products_API.Migrations
                     b.Navigation("Fridges");
                 });
 
-            modelBuilder.Entity("Entities.Models.Products", b =>
+            modelBuilder.Entity("Entities.Models.Product", b =>
                 {
                     b.Navigation("FridgeProducts");
                 });

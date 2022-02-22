@@ -6,9 +6,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entities.Models
+namespace Products.Data.Models
 {
-    public class FridgeProducts
+    [Table("fridge_products")]
+    public class FridgeProduct
     {
         [Column("FridgeProductsId")]
         public Guid Id { get; set; }
@@ -16,9 +17,9 @@ namespace Entities.Models
         [Required(ErrorMessage = "Fridge products quantity is required field.")]
         public int Quantity { get; set; }
 
-        [ForeignKey(nameof(Products))]
+        [ForeignKey(nameof(Models.Product))]
         public Guid ProductId { get; set; }
-        public Products Product { get; set; }
+        public Product Product { get; set; }
 
         [ForeignKey(nameof(Fridge))]
         public Guid FridgeId { get; set; }
