@@ -7,7 +7,7 @@ namespace Products.Repository
 {
     public class RepositoryManager : IRepositoryManager
     {
-        private ProductsContext _productContext;
+        private ProductsContext _productsContext;
         private FridgeModelRepository _fridgeModelRepository;
         private FridgeProductRepository _fridgeProductRepository;
         private FridgeRepository _fridgeRepository;
@@ -15,7 +15,7 @@ namespace Products.Repository
 
         public RepositoryManager(ProductsContext productsContext)
         {
-            _productContext = productsContext;
+            _productsContext = productsContext;
         }
 
         public IFridgeModelRepository FridgeModel
@@ -24,7 +24,7 @@ namespace Products.Repository
             {
                 if (_fridgeModelRepository == null)
                 {
-                    _fridgeModelRepository = new FridgeModelRepository(_productContext);
+                    _fridgeModelRepository = new FridgeModelRepository(_productsContext);
                 }
 
                 return _fridgeModelRepository;
@@ -36,7 +36,7 @@ namespace Products.Repository
             {
                 if(_fridgeProductRepository == null)
                 {
-                    _fridgeProductRepository = new FridgeProductRepository(_productContext);
+                    _fridgeProductRepository = new FridgeProductRepository(_productsContext);
                 }
 
                 return _fridgeProductRepository;
@@ -48,7 +48,7 @@ namespace Products.Repository
             {
                 if (_fridgeRepository == null)
                 {
-                    _fridgeRepository = new FridgeRepository(_productContext);
+                    _fridgeRepository = new FridgeRepository(_productsContext);
                 }
 
                 return _fridgeRepository;
@@ -60,13 +60,13 @@ namespace Products.Repository
             {
                 if(_productRepository == null)
                 {
-                    _productRepository = new ProductRepository(_productContext);
+                    _productRepository = new ProductRepository(_productsContext);
                 }
 
                 return _productRepository;
             }
         }
 
-        public void Save() => _productContext.SaveChanges();
+        public void Save() => _productsContext.SaveChanges();
     }
 }

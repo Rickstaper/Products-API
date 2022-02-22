@@ -1,7 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Products.Contracts;
 using Products.Data;
+using Products.Repository;
 
 namespace Products_API.Extensions
 {

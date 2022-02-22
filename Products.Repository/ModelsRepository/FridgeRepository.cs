@@ -1,11 +1,8 @@
-﻿using Entities;
-using Entities.Models;
-using Products.Contracts.ModelsContracts;
-using System;
+﻿using Products.Contracts.ModelsContracts;
+using Products.Data;
+using Products.Data.Models;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Products.Repository.ModelsRepository
 {
@@ -15,5 +12,10 @@ namespace Products.Repository.ModelsRepository
             : base(productsContext)
         {
         }
+
+        public IEnumerable<Fridge> GetAllFridges(bool trackChanges) =>
+            FindAll(trackChanges)
+            .OrderBy(c => c.Name)
+            .ToList();
     }
 }
