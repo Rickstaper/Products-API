@@ -1,16 +1,21 @@
-﻿using Entities;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Products.Data;
 
 namespace Products_API.Extensions
 {
     public static class ServiceExtensions
     {
-        public static void ConfigureSqlContext(this IServiceCollection service,
+        public static void ConfigureSqlContext(this IServiceCollection services,
             IConfiguration configuration) =>
-            service.AddDbContext<ProductsContext>(options =>
+            services.AddDbContext<ProductsContext>(options =>
             options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"), b =>
             b.MigrationsAssembly("Products.API")));
+
+        public static void ConfigureRepositoryManager(this IServiceCollection services)
+        {
+            services.AddScoped<IRepositoryManager, RepositoryManager>();
+        }
     }
 }

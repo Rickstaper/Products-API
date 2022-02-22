@@ -1,12 +1,6 @@
-﻿using Entities;
-using Entities.Models;
-using Products.Contracts.ModelsContracts;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿using Products.Contracts.ModelsContracts;
+using Products.Data;
+using Products.Data.Models;
 namespace Products.Repository.ModelsRepository
 {
     public class ProductRepository : RepositoryBase<Product>, IProductRepository

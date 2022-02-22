@@ -28,6 +28,7 @@ namespace Products_API
         public void ConfigureServices(IServiceCollection services)
         {
             services.ConfigureSqlContext(Configuration);
+            services.ConfigureRepositoryManager();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
