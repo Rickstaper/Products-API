@@ -1,7 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Products.Contracts;
+using Products.Data.DataTransferObject;
 using System;
+using System.Collections.Generic;
 
 namespace Products_API.Controllers
 {
@@ -11,27 +14,24 @@ namespace Products_API.Controllers
     {
         private readonly IRepositoryManager _repositoryManager;
         private readonly ILogger<FridgeController> _logger;
+        private readonly IMapper _mapper;
 
-        public FridgeController(IRepositoryManager repositoryManager, ILogger<FridgeController> logger)
+        public FridgeController(IRepositoryManager repositoryManager, ILogger<FridgeController> logger,
+            IMapper mapper)
         {
             _repositoryManager = repositoryManager;
             _logger = logger;
+            _mapper = mapper;
         }
 
         [HttpGet]
         public IActionResult GetFridges()
         {
-            try
-            {
-                var fridges = _repositoryManager.Fridge.GetAllFridges(false);
+            var fridges = _repositoryManager.Fridge.GetAllFridges(false);
 
-                return Ok(fridges);
-            }
-            catch(Exception ex)
-            {
-                _logger.LogError($"Something went wrong in the {nameof(GetFridges)} action {ex}");
-                return StatusCode(500, "Internel server error");
-            }
+            var fridgesDto = _mapper.Map<IEnumerable<FridgeDto>>(fridges);
+
+            return Ok(fridgesDto);
         }
     }
 }
