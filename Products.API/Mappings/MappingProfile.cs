@@ -8,6 +8,8 @@ namespace Products_API.Mappings
     {
         public MappingProfile()
         {
+            CreateMap<FridgeModel, FridgeModelDto>();
+
             CreateMap<Fridge, FridgeDto>();
 
             CreateMap<FridgeProduct, FridgeProductDto>();
