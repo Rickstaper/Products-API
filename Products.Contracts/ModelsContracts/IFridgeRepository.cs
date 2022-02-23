@@ -9,7 +9,7 @@ namespace Products.Contracts.ModelsContracts
 {
     public interface IFridgeRepository
     {
-        IEnumerable<Fridge> GetAllFridges(bool trackChanges);
-        Fridge GetFridge(Guid fridgeId, bool trackChanges);
+        IEnumerable<Fridge> GetAllFridges(Guid fridgeModelId, bool trackChanges);
+        Fridge GetFridge(Guid fridgeModelId, Guid fridgeId, bool trackChanges);
     }
 }

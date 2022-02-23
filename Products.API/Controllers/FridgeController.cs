@@ -8,7 +8,7 @@ using System.Collections.Generic;
 
 namespace Products_API.Controllers
 {
-    [Route("api/fridges")]
+    [Route("api/fridgeModels/{fridgeModelId}/fridges")]
     [ApiController]
     public class FridgeController : ControllerBase
     {
@@ -25,23 +25,23 @@ namespace Products_API.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetFridges()
+        public IActionResult GetFridges(Guid fridgeModelId)
         {
-            var fridges = _repositoryManager.Fridge.GetAllFridges(false);
+            var fridges = _repositoryManager.Fridge.GetAllFridges(fridgeModelId, false);
 
             var fridgesDto = _mapper.Map<IEnumerable<FridgeDto>>(fridges);
 
             return Ok(fridgesDto);
         }
 
-        [HttpGet("{id}")]
-        public IActionResult GetFridgeById(Guid id)
+        [HttpGet("{fridgeId}")]
+        public IActionResult GetFridgeById(Guid fridgeModelId, Guid fridgeId)
         {
-            var fridge = _repositoryManager.Fridge.GetFridge(id, false);
+            var fridge = _repositoryManager.Fridge.GetFridge(fridgeModelId, fridgeId, false);
 
             if (fridge == null)
             {
-                _logger.LogInformation($"Fridge with id: {id} doesn't exisit in the database");
+                _logger.LogInformation($"Fridge with id: {fridgeId} doesn't exisit in the database");
 
                 return NotFound();
             }

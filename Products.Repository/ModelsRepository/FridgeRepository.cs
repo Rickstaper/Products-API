@@ -13,14 +13,14 @@ namespace Products.Repository.ModelsRepository
             : base(productsContext)
         {
         }
-        //TODO: change anonym method name
-        public IEnumerable<Fridge> GetAllFridges(bool trackChanges) =>
-            FindAll(trackChanges)
-            .OrderBy(c => c.Name)
+
+        public IEnumerable<Fridge> GetAllFridges(Guid fridgeModelId, bool trackChanges) =>
+            FindByCondition(fridge => fridge.FridgeModelId.Equals(fridgeModelId), trackChanges)
+            .OrderBy(fridge => fridge.Name)
             .ToList();
 
-        public Fridge GetFridge(Guid fridgeId, bool trackChanges) =>
-            FindByCondition(c => c.Id.Equals(fridgeId), trackChanges)
+        public Fridge GetFridge(Guid fridgeModelId, Guid fridgeId, bool trackChanges) =>
+            FindByCondition(fridge => fridge.FridgeModelId.Equals(fridgeModelId) && fridge.Id.Equals(fridgeId), trackChanges)
             .SingleOrDefault();
     }
 }

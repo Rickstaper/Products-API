@@ -14,11 +14,14 @@ namespace Products.Repository.ModelsRepository
         {
         }
 
-        public IEnumerable<FridgeProduct> GetAllFridgeProducts(Guid fridgeId, bool trackChanges) =>
-            FindByCondition(fridgeProduct => fridgeProduct.FridgeId.Equals(fridgeId), trackChanges);
+        public IEnumerable<FridgeProduct> GetAllFridgeProducts(Guid fridgeModelId, Guid fridgeId, bool trackChanges) =>
+            FindByCondition(fridgeProduct => fridgeProduct.FridgeId.Equals(fridgeId) 
+            && fridgeProduct.Fridge.FridgeModelId.Equals(fridgeModelId), trackChanges);
 
-        public FridgeProduct GetFridgeProduct(Guid fridgeId, Guid fridgeProductId, bool trackChanges) =>
-            FindByCondition(fridgeProduct => fridgeProduct.FridgeId.Equals(fridgeId) && fridgeProduct.Id.Equals(fridgeProductId), trackChanges)
+        public FridgeProduct GetFridgeProduct(Guid fridgeModelId, Guid fridgeId, Guid fridgeProductId, bool trackChanges) =>
+            FindByCondition(fridgeProduct => fridgeProduct.Fridge.FridgeModelId.Equals(fridgeModelId)
+            && fridgeProduct.FridgeId.Equals(fridgeId) 
+            && fridgeProduct.Id.Equals(fridgeProductId), trackChanges)
             .SingleOrDefault();
     }
 }

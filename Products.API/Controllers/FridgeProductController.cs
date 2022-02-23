@@ -3,13 +3,14 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Products.Contracts;
 using Products.Data.DataTransferObject;
+using Products.Data.Models;
 using System;
 using System.Collections.Generic;
 
 namespace Products_API.Controllers
 {
     [ApiController]
-    [Route("api/fridges/{fridgeId}/fridgeProducts")]
+    [Route("api/fridgeModels/{fridgeModelId}/fridges/{fridgeId}/fridgeProducts")]
     public class FridgeProductController : ControllerBase
     {
         private readonly IRepositoryManager _repositoryManager;
@@ -25,9 +26,9 @@ namespace Products_API.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetFridgeProductsFromFridge(Guid fridgeId)
+        public IActionResult GetFridgeProductsFromFridge(Guid fridgeModelId, Guid fridgeId)
         {
-            var fridgeFromDb = _repositoryManager.Fridge.GetFridge(fridgeId, false);
+            Fridge fridgeFromDb = _repositoryManager.Fridge.GetFridge(fridgeModelId, fridgeId, false);
             if (fridgeFromDb == null)
             {
                 _logger.LogInformation($"Fridge with id: {fridgeId} doesn't exist in the database.");
@@ -35,18 +36,18 @@ namespace Products_API.Controllers
                 return NotFound();
             }
 
-            var fridgeProductFromDb = _repositoryManager.FridgeProduct.GetAllFridgeProducts(fridgeId, false);
+            IEnumerable<FridgeProduct> fridgeProductFromDb = _repositoryManager.FridgeProduct.GetAllFridgeProducts(fridgeModelId, fridgeId, false);
 
-            var fridgeProductDto = _mapper.Map<IEnumerable<FridgeProductDto>>(fridgeProductFromDb);
+            IEnumerable<FridgeProductDto> fridgeProductDto = _mapper.Map<IEnumerable<FridgeProductDto>>(fridgeProductFromDb);
 
             return Ok(fridgeProductDto);
         }
 
-        //TODO:Change types instead of var
         [HttpGet("{fridgeProductId}")]
-        public IActionResult GetFridgeProductFromFridgeById(Guid fridgeId, Guid fridgeProductId)
+        public IActionResult GetFridgeProductFromFridgeById(Guid fridgeModelId, Guid fridgeId, Guid fridgeProductId)
         {
-            var fridgeFromDb = _repositoryManager.Fridge.GetFridge(fridgeId, false);
+            Fridge fridgeFromDb = _repositoryManager.Fridge.GetFridge(fridgeModelId, fridgeId, false);
+
             if (fridgeFromDb == null)
             {
                 _logger.LogInformation($"Fridge with id: {fridgeId} doesn't exist in the database.");
@@ -54,15 +55,17 @@ namespace Products_API.Controllers
                 return NotFound();
             }
 
-            var fridgeProductFromDb = _repositoryManager.FridgeProduct.GetFridgeProduct(fridgeId, fridgeProductId, false);
-            if(fridgeProductFromDb == null)
+            FridgeProduct fridgeProductFromDb = _repositoryManager.FridgeProduct.GetFridgeProduct(fridgeModelId, 
+                fridgeId, fridgeProductId, false);
+
+            if (fridgeProductFromDb == null)
             {
                 _logger.LogInformation($"Fridge product with id: {fridgeProductId} doesn't exist in the database.");
 
                 return NotFound();
             }
 
-            var fridgeProductDto = _mapper.Map<FridgeProductDto>(fridgeProductFromDb);
+            FridgeProductDto fridgeProductDto = _mapper.Map<FridgeProductDto>(fridgeProductFromDb);
 
             return Ok(fridgeProductDto);
         }
