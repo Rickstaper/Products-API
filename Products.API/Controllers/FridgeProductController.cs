@@ -41,5 +41,30 @@ namespace Products_API.Controllers
 
             return Ok(fridgeProductDto);
         }
+
+        //TODO:Change types instead of var
+        [HttpGet("{fridgeProductId}")]
+        public IActionResult GetFridgeProductFromFridgeById(Guid fridgeId, Guid fridgeProductId)
+        {
+            var fridgeFromDb = _repositoryManager.Fridge.GetFridge(fridgeId, false);
+            if (fridgeFromDb == null)
+            {
+                _logger.LogInformation($"Fridge with id: {fridgeId} doesn't exist in the database.");
+
+                return NotFound();
+            }
+
+            var fridgeProductFromDb = _repositoryManager.FridgeProduct.GetFridgeProduct(fridgeId, fridgeProductId, false);
+            if(fridgeProductFromDb == null)
+            {
+                _logger.LogInformation($"Fridge product with id: {fridgeProductId} doesn't exist in the database.");
+
+                return NotFound();
+            }
+
+            var fridgeProductDto = _mapper.Map<FridgeProductDto>(fridgeProductFromDb);
+
+            return Ok(fridgeProductDto);
+        }
     }
 }

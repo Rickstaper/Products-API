@@ -13,7 +13,7 @@ namespace Products.Repository.ModelsRepository
             : base(productsContext)
         {
         }
-
+        //TODO: change anonym method name
         public IEnumerable<Fridge> GetAllFridges(bool trackChanges) =>
             FindAll(trackChanges)
             .OrderBy(c => c.Name)

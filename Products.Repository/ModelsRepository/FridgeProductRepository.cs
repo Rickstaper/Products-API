@@ -17,9 +17,8 @@ namespace Products.Repository.ModelsRepository
         public IEnumerable<FridgeProduct> GetAllFridgeProducts(Guid fridgeId, bool trackChanges) =>
             FindByCondition(fridgeProduct => fridgeProduct.FridgeId.Equals(fridgeId), trackChanges);
 
-        public FridgeProduct GetFridgeProduct(Guid fridgeId, Guid fridgeProductId, bool trackChanges)
-        {
-            throw new NotImplementedException();
-        }
+        public FridgeProduct GetFridgeProduct(Guid fridgeId, Guid fridgeProductId, bool trackChanges) =>
+            FindByCondition(fridgeProduct => fridgeProduct.FridgeId.Equals(fridgeId) && fridgeProduct.Id.Equals(fridgeProductId), trackChanges)
+            .SingleOrDefault();
     }
 }
