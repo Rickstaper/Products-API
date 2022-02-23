@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Products.Data.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +9,8 @@ namespace Products.Contracts.ModelsContracts
 {
     public interface IFridgeProductRepository
     {
+        IEnumerable<FridgeProduct> GetAllFridgeProducts(Guid fridgeId, bool trackChanges);
+
+        FridgeProduct GetFridgeProduct(Guid fridgeId, Guid fridgeProductId, bool trackChanges);
     }
 }
