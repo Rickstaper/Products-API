@@ -33,5 +33,24 @@ namespace Products_API.Controllers
 
             return Ok(fridgesDto);
         }
+
+        [HttpGet("{id}")]
+        public IActionResult GetFridgeById(Guid id)
+        {
+            var fridge = _repositoryManager.Fridge.GetFridge(id, false);
+
+            if (fridge == null)
+            {
+                _logger.LogInformation($"Fridge with id: {id} doesn't exisit in the database");
+
+                return NotFound();
+            }
+
+            var fridgeDto = _mapper.Map<FridgeDto>(fridge);
+
+            return Ok(fridgeDto);
+        }
+
+
     }
 }

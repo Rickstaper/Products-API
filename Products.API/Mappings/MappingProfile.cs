@@ -9,6 +9,8 @@ namespace Products_API.Mappings
         public MappingProfile()
         {
             CreateMap<Fridge, FridgeDto>();
+
+            CreateMap<FridgeProduct, FridgeProductDto>();
         }
     }
 }
