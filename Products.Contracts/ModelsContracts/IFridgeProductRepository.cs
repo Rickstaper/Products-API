@@ -14,5 +14,7 @@ namespace Products.Contracts.ModelsContracts
         FridgeProduct GetFridgeProduct(Guid fridgeModelId, Guid fridgeId, Guid fridgeProductId, bool trackChanges);
 
         void CreateFridgeProduct(Guid fridgeId, FridgeProduct fridgeProduct);
+
+        void DeleteFridgeProduct(FridgeProduct fridgeProduct);
     }
 }

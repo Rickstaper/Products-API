@@ -21,6 +21,8 @@ namespace Products.Repository.ModelsRepository
             Create(fridgeProduct);
         }
 
+        public void DeleteFridgeProduct(FridgeProduct fridgeProduct) => Delete(fridgeProduct);
+
         public IEnumerable<FridgeProduct> GetAllFridgeProducts(Guid fridgeModelId, Guid fridgeId, bool trackChanges) =>
             FindByCondition(fridgeProduct => fridgeProduct.FridgeId.Equals(fridgeId) 
             && fridgeProduct.Fridge.FridgeModelId.Equals(fridgeModelId), trackChanges);
