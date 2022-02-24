@@ -43,7 +43,7 @@ namespace Products_API.Controllers
             return Ok(fridgeProductDto);
         }
 
-        [HttpGet("{fridgeProductId}")]
+        [HttpGet("{fridgeProductId}", Name = "FridgeProductById")]
         public IActionResult GetFridgeProductFromFridgeById(Guid fridgeModelId, Guid fridgeId, Guid fridgeProductId)
         {
             Fridge fridgeFromDb = _repositoryManager.Fridge.GetFridge(fridgeModelId, fridgeId, false);
@@ -68,6 +68,36 @@ namespace Products_API.Controllers
             FridgeProductDto fridgeProductDto = _mapper.Map<FridgeProductDto>(fridgeProductFromDb);
 
             return Ok(fridgeProductDto);
+        }
+        //TODO: add solution about productId
+        [HttpPost]
+        public IActionResult CreateFridgeProduct(Guid fridgeModelId, Guid fridgeId, 
+            [FromBody]FridgeProductForCreationDto fridgeProductFromBody)
+        {
+            if(fridgeProductFromBody == null)
+            {
+                _logger.LogError($"FridgeProductForCreationDto object sent from client is null.");
+
+                return BadRequest("FridgeProductFroCreationDto object is null.");
+            }
+
+            Fridge fridge = _repositoryManager.Fridge.GetFridge(fridgeModelId, fridgeId, false);
+
+            if(fridge == null)
+            {
+                _logger.LogInformation($"Fridge with id: {fridgeId} doesn't exist in the database.");
+
+                return NotFound();
+            }
+
+            FridgeProduct fridgeProductEntity = _mapper.Map<FridgeProduct>(fridgeProductFromBody);
+
+            _repositoryManager.FridgeProduct.CreateFridgeProduct(fridgeId, fridgeProductEntity);
+            _repositoryManager.Save();
+
+            FridgeProductDto fridgeProductDtoAsResult = _mapper.Map<FridgeProductDto>(fridgeProductEntity);
+
+            return CreatedAtRoute("FridgeProductById", new { fridgeModelId, fridgeId, fridgeProductId = fridgeProductDtoAsResult.Id }, fridgeProductDtoAsResult);
         }
     }
 }

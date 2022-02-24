@@ -13,6 +13,7 @@ namespace Products_API.Mappings
             CreateMap<Fridge, FridgeDto>();
 
             CreateMap<FridgeProduct, FridgeProductDto>();
+            CreateMap<FridgeProductForCreationDto, FridgeProduct>();
         }
     }
 }

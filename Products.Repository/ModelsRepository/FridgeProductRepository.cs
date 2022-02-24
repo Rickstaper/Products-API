@@ -14,6 +14,13 @@ namespace Products.Repository.ModelsRepository
         {
         }
 
+        public void CreateFridgeProduct(Guid fridgeId, FridgeProduct fridgeProduct)
+        {
+            fridgeProduct.FridgeId = fridgeId;
+
+            Create(fridgeProduct);
+        }
+
         public IEnumerable<FridgeProduct> GetAllFridgeProducts(Guid fridgeModelId, Guid fridgeId, bool trackChanges) =>
             FindByCondition(fridgeProduct => fridgeProduct.FridgeId.Equals(fridgeId) 
             && fridgeProduct.Fridge.FridgeModelId.Equals(fridgeModelId), trackChanges);

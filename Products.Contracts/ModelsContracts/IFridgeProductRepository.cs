@@ -12,5 +12,7 @@ namespace Products.Contracts.ModelsContracts
         IEnumerable<FridgeProduct> GetAllFridgeProducts(Guid fridgeModelId, Guid fridgeId, bool trackChanges);
 
         FridgeProduct GetFridgeProduct(Guid fridgeModelId, Guid fridgeId, Guid fridgeProductId, bool trackChanges);
+
+        void CreateFridgeProduct(Guid fridgeId, FridgeProduct fridgeProduct);
     }
 }
