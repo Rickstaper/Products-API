@@ -78,7 +78,7 @@ namespace Products_API.Controllers
             {
                 _logger.LogError($"FridgeProductForCreationDto object sent from client is null.");
 
-                return BadRequest("FridgeProductFroCreationDto object is null.");
+                return BadRequest("FridgeProductForCreationDto object is null.");
             }
 
             Fridge fridge = _repositoryManager.Fridge.GetFridge(fridgeModelId, fridgeId, false);
@@ -99,5 +99,88 @@ namespace Products_API.Controllers
 
             return CreatedAtRoute("FridgeProductById", new { fridgeModelId, fridgeId, fridgeProductId = fridgeProductDtoAsResult.Id }, fridgeProductDtoAsResult);
         }
+
+        [HttpDelete("{fridgeProductId}")]
+        public IActionResult DeleteFridgeProduct(Guid fridgeModelId, Guid fridgeId, Guid fridgeProductId)
+        {
+            FridgeModel fridgeModel = _repositoryManager.FridgeModel.GetFridgeModel(fridgeModelId, false);
+
+            if(fridgeModel == null)
+            {
+                _logger.LogInformation($"FridgeModel with id: {fridgeModelId} doesn't exist in the database.");
+
+                return NotFound();
+            }
+
+            Fridge fridge = _repositoryManager.Fridge.GetFridge(fridgeModelId, fridgeId, false);
+
+            if(fridge == null)
+            {
+                _logger.LogInformation($"Fridge with id: {fridgeId} doesn't exist in the database.");
+
+                return NotFound();
+            }
+
+            FridgeProduct fridgeProduct = _repositoryManager.FridgeProduct.GetFridgeProduct(fridgeModelId, fridgeId, fridgeProductId, false);
+
+            if(fridgeProduct == null)
+            {
+                _logger.LogInformation($"FridgeProduct with id: {fridgeProductId} doesn't exist in the database.");
+
+                return NotFound();
+            }
+
+            _repositoryManager.FridgeProduct.DeleteFridgeProduct(fridgeProduct);
+            _repositoryManager.Save();
+
+            return NoContent();
+        }
+
+        [HttpPut("{fridgeProductId}")]
+        public IActionResult UpdateFridgeProduct(Guid fridgeModelId, Guid fridgeId, Guid fridgeProductId,
+            [FromBody]FridgeProductForUpdateDto fridgeProductFromBody)
+        {
+            if (fridgeProductFromBody == null)
+            {
+                _logger.LogError($"FridgeProductForUpdateDto object sent from client is null.");
+
+                return BadRequest("FridgeProductForUpdateDto object is null.");
+            }
+
+            FridgeModel fridgeModelFromDb = _repositoryManager.FridgeModel.GetFridgeModel(fridgeModelId, false);
+
+            if (fridgeModelFromDb == null)
+            {
+                _logger.LogInformation($"FridgeModel with id: {fridgeModelId} doesn't exist in the database.");
+
+                return NotFound();
+            }
+
+            Fridge fridgeFromDb = _repositoryManager.Fridge.GetFridge(fridgeModelId, fridgeId, false);
+
+            if (fridgeFromDb == null)
+            {
+                _logger.LogInformation($"Fridge with id: {fridgeId} doesn't exist in the database.");
+
+                return NotFound();
+            }
+
+            FridgeProduct fridgeProductFromDb = _repositoryManager.FridgeProduct.GetFridgeProduct(fridgeModelId,
+                fridgeId, fridgeProductId, true);
+
+            if (fridgeProductFromDb == null)
+            {
+                _logger.LogInformation($"Fridge product with id: {fridgeProductId} doesn't exist in the database.");
+
+                return NotFound();
+            }
+
+            _mapper.Map(fridgeProductFromBody, fridgeProductFromDb);
+            _repositoryManager.Save();
+
+            return NoContent();
+        }
+
+        //TODO: create for collection (the ninetieth page)
     }
 }
