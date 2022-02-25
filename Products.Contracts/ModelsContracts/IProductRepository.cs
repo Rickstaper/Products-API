@@ -11,6 +11,8 @@ namespace Products.Contracts.ModelsContracts
     {
         IEnumerable<Product> GetAllProducts(bool trackChanges);
 
+        Product GetProductById(Guid productId, bool trackChanges);
+
         IEnumerable<Product> GetProductsFromFridgeProducts(IEnumerable<Product> products, IEnumerable<FridgeProduct> fridgeProducts);
     }
 }

@@ -13,11 +13,18 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
+    <PackageReference Include="System.Drawing.Common" Version="5.0.3" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Products.Data\Products.Data.csproj" />
     <ProjectReference Include="..\Products.Repository\Products.Repository.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Resources\Images\Kinder.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

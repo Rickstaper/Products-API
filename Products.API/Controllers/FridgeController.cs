@@ -56,7 +56,7 @@ namespace Products_API.Controllers
                 return NotFound();
             }
 
-            Fridge fridgeFromDb = _repositoryManager.Fridge.GetFridge(fridgeModelId, fridgeId, false);
+            Fridge fridgeFromDb = _repositoryManager.Fridge.GetFridgeById(fridgeModelId, fridgeId, false);
 
             if (fridgeFromDb == null)
             {
@@ -90,7 +90,7 @@ namespace Products_API.Controllers
                 return NotFound();
             }
 
-            Fridge fridgeFromDb = _repositoryManager.Fridge.GetFridge(fridgeModelId, fridgeId, true);
+            Fridge fridgeFromDb = _repositoryManager.Fridge.GetFridgeById(fridgeModelId, fridgeId, true);
 
             if (fridgeFromDb == null)
             {

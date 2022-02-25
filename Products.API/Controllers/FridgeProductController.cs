@@ -37,7 +37,7 @@ namespace Products_API.Controllers
                 return NotFound();
             }
 
-            Fridge fridgeFromDb = _repositoryManager.Fridge.GetFridge(fridgeModelId, fridgeId, false);
+            Fridge fridgeFromDb = _repositoryManager.Fridge.GetFridgeById(fridgeModelId, fridgeId, false);
             if (fridgeFromDb == null)
             {
                 _logger.LogInformation($"Fridge with id: {fridgeId} doesn't exist in the database.");
@@ -64,7 +64,7 @@ namespace Products_API.Controllers
                 return NotFound();
             }
 
-            Fridge fridgeFromDb = _repositoryManager.Fridge.GetFridge(fridgeModelId, fridgeId, false);
+            Fridge fridgeFromDb = _repositoryManager.Fridge.GetFridgeById(fridgeModelId, fridgeId, false);
 
             if (fridgeFromDb == null)
             {
@@ -108,7 +108,7 @@ namespace Products_API.Controllers
                 return NotFound();
             }
 
-            Fridge fridge = _repositoryManager.Fridge.GetFridge(fridgeModelId, fridgeId, false);
+            Fridge fridge = _repositoryManager.Fridge.GetFridgeById(fridgeModelId, fridgeId, false);
 
             if(fridge == null)
             {
@@ -139,7 +139,7 @@ namespace Products_API.Controllers
                 return NotFound();
             }
 
-            Fridge fridge = _repositoryManager.Fridge.GetFridge(fridgeModelId, fridgeId, false);
+            Fridge fridge = _repositoryManager.Fridge.GetFridgeById(fridgeModelId, fridgeId, false);
 
             if(fridge == null)
             {
@@ -183,7 +183,7 @@ namespace Products_API.Controllers
                 return NotFound();
             }
 
-            Fridge fridgeFromDb = _repositoryManager.Fridge.GetFridge(fridgeModelId, fridgeId, false);
+            Fridge fridgeFromDb = _repositoryManager.Fridge.GetFridgeById(fridgeModelId, fridgeId, false);
 
             if (fridgeFromDb == null)
             {
@@ -220,7 +220,7 @@ namespace Products_API.Controllers
                 return NotFound();
             }
 
-            Fridge fridgeFromDb = _repositoryManager.Fridge.GetFridge(fridgeModelId, fridgeId, false);
+            Fridge fridgeFromDb = _repositoryManager.Fridge.GetFridgeById(fridgeModelId, fridgeId, false);
             if (fridgeFromDb == null)
             {
                 _logger.LogInformation($"Fridge with id: {fridgeId} doesn't exist in the database.");

@@ -19,6 +19,10 @@ namespace Products.Repository.ModelsRepository
             .OrderBy(product => product.Name)
             .ToList();
 
+        public Product GetProductById(Guid productId, bool trackChanges) =>
+            FindByCondition(product => product.Id.Equals(productId), trackChanges)
+            .SingleOrDefault();
+
         public IEnumerable<Product> GetProductsFromFridgeProducts(IEnumerable<Product> products, 
             IEnumerable<FridgeProduct> fridgeProducts) =>
             products.Where(p => fridgeProducts.Any(fp => fp.ProductId == p.Id))

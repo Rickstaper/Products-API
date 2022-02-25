@@ -19,7 +19,7 @@ namespace Products.Repository.ModelsRepository
             .OrderBy(fridge => fridge.Name)
             .ToList();
 
-        public Fridge GetFridge(Guid fridgeModelId, Guid fridgeId, bool trackChanges) =>
+        public Fridge GetFridgeById(Guid fridgeModelId, Guid fridgeId, bool trackChanges) =>
             FindByCondition(fridge => fridge.FridgeModelId.Equals(fridgeModelId) && fridge.Id.Equals(fridgeId), trackChanges)
             .SingleOrDefault();
     }
