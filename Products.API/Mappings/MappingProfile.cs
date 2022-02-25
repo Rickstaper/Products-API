@@ -11,6 +11,7 @@ namespace Products_API.Mappings
             CreateMap<FridgeModel, FridgeModelDto>();
 
             CreateMap<Fridge, FridgeDto>();
+            CreateMap<FridgeForUpdateDto, Fridge>();
 
             CreateMap<FridgeProduct, FridgeProductDto>();
             CreateMap<FridgeProductForCreationDto, FridgeProduct>();

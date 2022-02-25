@@ -12,7 +12,6 @@ namespace Products.Data.Models
     [Table("products")]
     public class Product
     {
-        [Column("PoductId")]
         public Guid Id { get; set; }
 
         [Required(ErrorMessage = "Fridge model name is required field.")]
@@ -20,6 +19,8 @@ namespace Products.Data.Models
 
         [DefaultValue(0)]
         public int DefaultQuantity { get; set; }
+
+        public byte[] Image { get; set; }
 
         public ICollection<FridgeProduct> FridgeProducts { get; set; }
     }

@@ -11,7 +11,6 @@ namespace Products.Data.Models
     [Table("fridge_products")]
     public class FridgeProduct
     {
-        [Column("FridgeProductsId")]
         public Guid Id { get; set; }
 
         [Required(ErrorMessage = "Fridge products quantity is required field.")]

@@ -10,7 +10,6 @@ namespace Products.Data.Models
 {
     public class Fridge
     {
-        [Column("FidgeId")]
         public Guid Id { get; set; }
 
         [Required(ErrorMessage = "Fridge name is required field.")]

@@ -1,4 +1,5 @@
-﻿using Products.Contracts.ModelsContracts;
+﻿using Microsoft.EntityFrameworkCore;
+using Products.Contracts.ModelsContracts;
 using Products.Data;
 using Products.Data.Models;
 using System;
@@ -23,6 +24,15 @@ namespace Products.Repository.ModelsRepository
 
         public void DeleteFridgeProduct(FridgeProduct fridgeProduct) => Delete(fridgeProduct);
 
+        public IEnumerable<FridgeProduct> GetFridgeProductsWithZeroQuantity(bool trackChanges) =>
+            (!trackChanges ?
+            ProductsContext.Set<FridgeProduct>()
+            .FromSqlRaw("FindFridgeProductsWithZeroQuantity")
+            .AsNoTracking() :
+            ProductsContext.Set<FridgeProduct>()
+            .FromSqlRaw("FindFridgeProductsWithZeroQuantity")
+            ).ToList();
+
         public IEnumerable<FridgeProduct> GetAllFridgeProducts(Guid fridgeModelId, Guid fridgeId, bool trackChanges) =>
             FindByCondition(fridgeProduct => fridgeProduct.FridgeId.Equals(fridgeId) 
             && fridgeProduct.Fridge.FridgeModelId.Equals(fridgeModelId), trackChanges);
@@ -32,5 +42,21 @@ namespace Products.Repository.ModelsRepository
             && fridgeProduct.FridgeId.Equals(fridgeId) 
             && fridgeProduct.Id.Equals(fridgeProductId), trackChanges)
             .SingleOrDefault();
+
+        public void InitialiseQuantityByDefaultQuantity(ref IEnumerable<FridgeProduct> fridgeProducts, IEnumerable<Product> products)
+        {
+            foreach(Product product in products)
+            {
+                fridgeProducts = fridgeProducts.Select(p =>
+                {
+                    if (p.ProductId.Equals(product.Id))
+                    {
+                        p.Quantity = product.DefaultQuantity;
+                    }
+
+                    return p;
+                }).ToList();
+            }
+        }
     }
 }

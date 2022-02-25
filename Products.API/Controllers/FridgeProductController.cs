@@ -28,6 +28,15 @@ namespace Products_API.Controllers
         [HttpGet]
         public IActionResult GetFridgeProductsFromFridge(Guid fridgeModelId, Guid fridgeId)
         {
+            FridgeModel fridgeModelFromDb = _repositoryManager.FridgeModel.GetFridgeModel(fridgeModelId, false);
+
+            if (fridgeModelFromDb == null)
+            {
+                _logger.LogInformation($"FridgeModel with id: {fridgeModelId} doesn't exist in the database.");
+
+                return NotFound();
+            }
+
             Fridge fridgeFromDb = _repositoryManager.Fridge.GetFridge(fridgeModelId, fridgeId, false);
             if (fridgeFromDb == null)
             {
@@ -46,6 +55,15 @@ namespace Products_API.Controllers
         [HttpGet("{fridgeProductId}", Name = "FridgeProductById")]
         public IActionResult GetFridgeProductFromFridgeById(Guid fridgeModelId, Guid fridgeId, Guid fridgeProductId)
         {
+            FridgeModel fridgeModelFromDb = _repositoryManager.FridgeModel.GetFridgeModel(fridgeModelId, false);
+
+            if (fridgeModelFromDb == null)
+            {
+                _logger.LogInformation($"FridgeModel with id: {fridgeModelId} doesn't exist in the database.");
+
+                return NotFound();
+            }
+
             Fridge fridgeFromDb = _repositoryManager.Fridge.GetFridge(fridgeModelId, fridgeId, false);
 
             if (fridgeFromDb == null)
@@ -81,6 +99,15 @@ namespace Products_API.Controllers
                 return BadRequest("FridgeProductForCreationDto object is null.");
             }
 
+            FridgeModel fridgeModelFromDb = _repositoryManager.FridgeModel.GetFridgeModel(fridgeModelId, false);
+
+            if (fridgeModelFromDb == null)
+            {
+                _logger.LogInformation($"FridgeModel with id: {fridgeModelId} doesn't exist in the database.");
+
+                return NotFound();
+            }
+
             Fridge fridge = _repositoryManager.Fridge.GetFridge(fridgeModelId, fridgeId, false);
 
             if(fridge == null)
@@ -103,9 +130,9 @@ namespace Products_API.Controllers
         [HttpDelete("{fridgeProductId}")]
         public IActionResult DeleteFridgeProduct(Guid fridgeModelId, Guid fridgeId, Guid fridgeProductId)
         {
-            FridgeModel fridgeModel = _repositoryManager.FridgeModel.GetFridgeModel(fridgeModelId, false);
+            FridgeModel fridgeModelFromDb = _repositoryManager.FridgeModel.GetFridgeModel(fridgeModelId, false);
 
-            if(fridgeModel == null)
+            if (fridgeModelFromDb == null)
             {
                 _logger.LogInformation($"FridgeModel with id: {fridgeModelId} doesn't exist in the database.");
 
@@ -176,6 +203,42 @@ namespace Products_API.Controllers
             }
 
             _mapper.Map(fridgeProductFromBody, fridgeProductFromDb);
+            _repositoryManager.Save();
+
+            return NoContent();
+        }
+
+        [HttpGet("AddDefaultQuantity")]
+        public IActionResult AddDefaultQuantityForProductsWithZeroQuantity(Guid fridgeModelId, Guid fridgeId)
+        {
+            FridgeModel fridgeModelFromDb = _repositoryManager.FridgeModel.GetFridgeModel(fridgeModelId, false);
+
+            if (fridgeModelFromDb == null)
+            {
+                _logger.LogInformation($"FridgeModel with id: {fridgeModelId} doesn't exist in the database.");
+
+                return NotFound();
+            }
+
+            Fridge fridgeFromDb = _repositoryManager.Fridge.GetFridge(fridgeModelId, fridgeId, false);
+            if (fridgeFromDb == null)
+            {
+                _logger.LogInformation($"Fridge with id: {fridgeId} doesn't exist in the database.");
+
+                return NotFound();
+            }
+
+            IEnumerable<FridgeProduct> fridgeProductsWithZeroQuantity 
+                = _repositoryManager.FridgeProduct.GetFridgeProductsWithZeroQuantity(true);
+
+            IEnumerable<Product> productsFromDb = _repositoryManager.Product.GetAllProducts(false);
+
+            IEnumerable<Product> productsFromFridgeProductsWithZeroQuantity
+                = _repositoryManager.Product.GetProductsFromFridgeProducts(productsFromDb, fridgeProductsWithZeroQuantity);
+
+            _repositoryManager.FridgeProduct.InitialiseQuantityByDefaultQuantity(ref fridgeProductsWithZeroQuantity,
+                productsFromFridgeProductsWithZeroQuantity);
+
             _repositoryManager.Save();
 
             return NoContent();

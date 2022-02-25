@@ -16,5 +16,9 @@ namespace Products.Contracts.ModelsContracts
         void CreateFridgeProduct(Guid fridgeId, FridgeProduct fridgeProduct);
 
         void DeleteFridgeProduct(FridgeProduct fridgeProduct);
+
+        IEnumerable<FridgeProduct> GetFridgeProductsWithZeroQuantity(bool tackChanges);
+
+        void InitialiseQuantityByDefaultQuantity(ref IEnumerable<FridgeProduct> fridgeProducts, IEnumerable<Product> products);
     }
 }
