@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Products.Data.Configuration;
+using Products.Data.Configuration.IdentityConfiguration;
 using Products.Data.Models;
 using Products.Data.Models.IdentityModels;
 using System;
@@ -27,6 +28,7 @@ namespace Products.Data
             modelBuilder.ApplyConfiguration(new FridgeProductConfiguration());
             modelBuilder.ApplyConfiguration(new FridgeModelConfiguration());
             modelBuilder.ApplyConfiguration(new FridgeConfiguration());
+            modelBuilder.ApplyConfiguration(new RoleConfiguration());
         }
 
         public DbSet<Fridge> Fridges { get; set; }
