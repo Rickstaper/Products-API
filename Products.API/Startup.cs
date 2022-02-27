@@ -29,6 +29,9 @@ namespace Products_API
         {
             services.AddAutoMapper(typeof(Startup));
 
+            services.AddAuthentication();
+            services.ConfigureIdentity();
+
             services.ConfigureSqlContext(Configuration);
             services.ConfigureRepositoryManager();
 
@@ -60,6 +63,7 @@ namespace Products_API
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

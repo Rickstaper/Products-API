@@ -1,6 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Products.Data.Configuration;
 using Products.Data.Models;
+using Products.Data.Models.IdentityModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Products.Data
 {
-    public class ProductsContext : DbContext
+    public class ProductsContext : IdentityDbContext<User>
     {
         public ProductsContext(DbContextOptions options)
             : base(options)
@@ -19,6 +21,8 @@ namespace Products.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.ApplyConfiguration(new ProductConfiguration());
             modelBuilder.ApplyConfiguration(new FridgeProductConfiguration());
             modelBuilder.ApplyConfiguration(new FridgeModelConfiguration());
