@@ -14,5 +14,7 @@ namespace Products.Contracts
             bool trackChanges);
         void Create(T entity);
         void Delete(T entity);
+
+        public IQueryable<T> FindByStoredProcedure(string storedProcedure, bool trackChanges);
     }
 }

@@ -9,9 +9,9 @@ namespace Products.Contracts.ModelsContracts
 {
     public interface IProductRepository
     {
-        IEnumerable<Product> GetAllProducts(bool trackChanges);
+        Task<IEnumerable<Product>> GetAllProductsAsync(bool trackChanges);
 
-        Product GetProductById(Guid productId, bool trackChanges);
+        Task<Product> GetProductByIdAsync(Guid productId, bool trackChanges);
 
         IEnumerable<Product> GetProductsFromFridgeProducts(IEnumerable<Product> products, IEnumerable<FridgeProduct> fridgeProducts);
     }

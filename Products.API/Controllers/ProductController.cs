@@ -7,6 +7,7 @@ using Products.Data.Models;
 using Products_API.Utils;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Products_API.Controllers
 {
@@ -27,9 +28,9 @@ namespace Products_API.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAllProducts()
+        public async Task<IActionResult> GetAllProducts()
         {
-            IEnumerable<Product> productsFromDb = _repositoryManager.Product.GetAllProducts(false);
+            IEnumerable<Product> productsFromDb = await _repositoryManager.Product.GetAllProductsAsync(false);
 
             IEnumerable<ProductDto> productDto = _mapper.Map<IEnumerable<ProductDto>>(productsFromDb);
 
@@ -37,11 +38,11 @@ namespace Products_API.Controllers
         }
 
         [HttpPost("{productId}/uploadImage")]
-        public IActionResult UploadImage(Guid productId)
+        public async Task<IActionResult> UploadImage(Guid productId)
         {
             byte[] imageByteArray = FileUtility.GetImageByteArray("Kinder.jpg");
 
-            Product productFromDb = _repositoryManager.Product.GetProductById(productId, true);
+            Product productFromDb = await _repositoryManager.Product.GetProductByIdAsync(productId, true);
 
             if(productFromDb == null)
             {
@@ -52,7 +53,7 @@ namespace Products_API.Controllers
 
             productFromDb.Image = imageByteArray;
 
-            _repositoryManager.Save();
+            await _repositoryManager.SaveAsync();
 
             return NoContent();
         }

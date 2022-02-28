@@ -9,6 +9,6 @@ namespace Products.Contracts.ModelsContracts
 {
     public interface IFridgeModelRepository
     {
-        FridgeModel GetFridgeModel(Guid fridgeModelId, bool trackChanges);
+        Task<FridgeModel> GetFridgeModelAsync(Guid fridgeModelId, bool trackChanges);
     }
 }

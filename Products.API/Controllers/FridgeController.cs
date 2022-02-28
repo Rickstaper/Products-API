@@ -6,6 +6,7 @@ using Products.Data.DataTransferObject;
 using Products.Data.Models;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Products_API.Controllers
 {
@@ -26,9 +27,9 @@ namespace Products_API.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetFridges(Guid fridgeModelId)
+        public async Task<IActionResult> GetFridges(Guid fridgeModelId)
         {
-            FridgeModel fridgeModelFromDb = _repositoryManager.FridgeModel.GetFridgeModel(fridgeModelId, false);
+            FridgeModel fridgeModelFromDb = await _repositoryManager.FridgeModel.GetFridgeModelAsync(fridgeModelId, false);
 
             if (fridgeModelFromDb == null)
             {
@@ -37,7 +38,7 @@ namespace Products_API.Controllers
                 return NotFound();
             }
 
-            IEnumerable<Fridge> fridgesFromDb = _repositoryManager.Fridge.GetAllFridges(fridgeModelId, false);
+            IEnumerable<Fridge> fridgesFromDb = await _repositoryManager.Fridge.GetAllFridgesAsync(fridgeModelId, false);
 
             var fridgesDto = _mapper.Map<IEnumerable<FridgeDto>>(fridgesFromDb);
 
@@ -45,9 +46,9 @@ namespace Products_API.Controllers
         }
 
         [HttpGet("{fridgeId}")]
-        public IActionResult GetFridgeById(Guid fridgeModelId, Guid fridgeId)
+        public async Task<IActionResult> GetFridgeById(Guid fridgeModelId, Guid fridgeId)
         {
-            FridgeModel fridgeModelFromDb = _repositoryManager.FridgeModel.GetFridgeModel(fridgeModelId, false);
+            FridgeModel fridgeModelFromDb = await _repositoryManager.FridgeModel.GetFridgeModelAsync(fridgeModelId, false);
 
             if (fridgeModelFromDb == null)
             {
@@ -56,7 +57,7 @@ namespace Products_API.Controllers
                 return NotFound();
             }
 
-            Fridge fridgeFromDb = _repositoryManager.Fridge.GetFridgeById(fridgeModelId, fridgeId, false);
+            Fridge fridgeFromDb = await _repositoryManager.Fridge.GetFridgeByIdAsync(fridgeModelId, fridgeId, false);
 
             if (fridgeFromDb == null)
             {
@@ -71,7 +72,7 @@ namespace Products_API.Controllers
         }
 
         [HttpPut("{fridgeId}")]
-        public IActionResult UpdateFridge(Guid fridgeModelId, Guid fridgeId,
+        public async Task<IActionResult> UpdateFridge(Guid fridgeModelId, Guid fridgeId,
             [FromBody]FridgeForUpdateDto fridgeFromBody)
         {
             if(fridgeFromBody == null)
@@ -81,7 +82,7 @@ namespace Products_API.Controllers
                 return BadRequest("FridgeForUpdateDto object is null.");
             }
 
-            FridgeModel fridgeModelFromDb = _repositoryManager.FridgeModel.GetFridgeModel(fridgeModelId, false);
+            FridgeModel fridgeModelFromDb = await _repositoryManager.FridgeModel.GetFridgeModelAsync(fridgeModelId, false);
 
             if(fridgeModelFromDb == null)
             {
@@ -90,7 +91,7 @@ namespace Products_API.Controllers
                 return NotFound();
             }
 
-            Fridge fridgeFromDb = _repositoryManager.Fridge.GetFridgeById(fridgeModelId, fridgeId, true);
+            Fridge fridgeFromDb = await _repositoryManager.Fridge.GetFridgeByIdAsync(fridgeModelId, fridgeId, true);
 
             if (fridgeFromDb == null)
             {
@@ -100,7 +101,7 @@ namespace Products_API.Controllers
             }
 
             _mapper.Map(fridgeFromBody, fridgeFromDb);
-            _repositoryManager.Save();
+            await _repositoryManager.SaveAsync();
 
             return NoContent();
         }

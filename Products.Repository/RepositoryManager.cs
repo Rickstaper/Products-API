@@ -2,6 +2,7 @@
 using Products.Contracts.ModelsContracts;
 using Products.Data;
 using Products.Repository.ModelsRepository;
+using System.Threading.Tasks;
 
 namespace Products.Repository
 {
@@ -67,6 +68,6 @@ namespace Products.Repository
             }
         }
 
-        public void Save() => _productsContext.SaveChanges();
+        public Task SaveAsync() => _productsContext.SaveChangesAsync();
     }
 }

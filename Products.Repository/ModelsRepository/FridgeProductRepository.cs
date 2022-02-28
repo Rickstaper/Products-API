@@ -5,6 +5,7 @@ using Products.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Products.Repository.ModelsRepository
 {
@@ -24,24 +25,20 @@ namespace Products.Repository.ModelsRepository
 
         public void DeleteFridgeProduct(FridgeProduct fridgeProduct) => Delete(fridgeProduct);
 
-        public IEnumerable<FridgeProduct> GetFridgeProductsWithZeroQuantity(bool trackChanges) =>
-            (!trackChanges ?
-            ProductsContext.Set<FridgeProduct>()
-            .FromSqlRaw("FindFridgeProductsWithZeroQuantity")
-            .AsNoTracking() :
-            ProductsContext.Set<FridgeProduct>()
-            .FromSqlRaw("FindFridgeProductsWithZeroQuantity")
-            ).ToList();
+        public async Task<IEnumerable<FridgeProduct>> GetFridgeProductsWithZeroQuantityAsync(bool trackChanges) =>
+            await FindByStoredProcedure("FindFridgeProductsWithZeroQuantity", trackChanges)
+            .ToListAsync();
 
-        public IEnumerable<FridgeProduct> GetAllFridgeProducts(Guid fridgeModelId, Guid fridgeId, bool trackChanges) =>
-            FindByCondition(fridgeProduct => fridgeProduct.FridgeId.Equals(fridgeId) 
-            && fridgeProduct.Fridge.FridgeModelId.Equals(fridgeModelId), trackChanges);
+        public async Task<IEnumerable<FridgeProduct>> GetAllFridgeProductsAsync(Guid fridgeModelId, Guid fridgeId, bool trackChanges) =>
+            await FindByCondition(fridgeProduct => fridgeProduct.FridgeId.Equals(fridgeId) 
+            && fridgeProduct.Fridge.FridgeModelId.Equals(fridgeModelId), trackChanges)
+            .ToListAsync();
 
-        public FridgeProduct GetFridgeProduct(Guid fridgeModelId, Guid fridgeId, Guid fridgeProductId, bool trackChanges) =>
-            FindByCondition(fridgeProduct => fridgeProduct.Fridge.FridgeModelId.Equals(fridgeModelId)
+        public async Task<FridgeProduct> GetFridgeProductAsync(Guid fridgeModelId, Guid fridgeId, Guid fridgeProductId, bool trackChanges) =>
+            await FindByCondition(fridgeProduct => fridgeProduct.Fridge.FridgeModelId.Equals(fridgeModelId)
             && fridgeProduct.FridgeId.Equals(fridgeId) 
             && fridgeProduct.Id.Equals(fridgeProductId), trackChanges)
-            .SingleOrDefault();
+            .SingleOrDefaultAsync();
 
         public void InitialiseQuantityByDefaultQuantity(ref IEnumerable<FridgeProduct> fridgeProducts, IEnumerable<Product> products)
         {

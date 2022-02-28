@@ -5,6 +5,7 @@ using Products.Contracts;
 using Products.Data.DataTransferObject;
 using Products.Data.Models;
 using System;
+using System.Threading.Tasks;
 
 namespace Products_API.Controllers
 {
@@ -25,9 +26,9 @@ namespace Products_API.Controllers
         }
 
         [HttpGet("{fridgeModelId}")]
-        public IActionResult GetFridgeModelById(Guid fridgeModelId)
+        public async Task<IActionResult> GetFridgeModelById(Guid fridgeModelId)
         {
-            FridgeModel fridgeModelFromDb = _repositoryManager.FridgeModel.GetFridgeModel(fridgeModelId, false);
+            FridgeModel fridgeModelFromDb = await _repositoryManager.FridgeModel.GetFridgeModelAsync(fridgeModelId, false);
 
             if(fridgeModelFromDb == null)
             {

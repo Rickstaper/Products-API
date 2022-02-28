@@ -1,9 +1,11 @@
-﻿using Products.Contracts.ModelsContracts;
+﻿using Microsoft.EntityFrameworkCore;
+using Products.Contracts.ModelsContracts;
 using Products.Data;
 using Products.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Products.Repository.ModelsRepository
 {
@@ -14,17 +16,17 @@ namespace Products.Repository.ModelsRepository
         {
         }
 
-        public IEnumerable<Product> GetAllProducts(bool trackChanges) =>
-            FindAll(trackChanges)
+        public async Task<IEnumerable<Product>> GetAllProductsAsync(bool trackChanges) =>
+            await FindAll(trackChanges)
             .OrderBy(product => product.Name)
-            .ToList();
+            .ToListAsync();
 
-        public Product GetProductById(Guid productId, bool trackChanges) =>
-            FindByCondition(product => product.Id.Equals(productId), trackChanges)
-            .SingleOrDefault();
+        public async Task<Product> GetProductByIdAsync(Guid productId, bool trackChanges) =>
+            await FindByCondition(product => product.Id.Equals(productId), trackChanges)
+            .SingleOrDefaultAsync();
 
-        public IEnumerable<Product> GetProductsFromFridgeProducts(IEnumerable<Product> products, 
-            IEnumerable<FridgeProduct> fridgeProducts) =>
+        //TODO: fixe method
+        public IEnumerable<Product> GetProductsFromFridgeProducts(IEnumerable<Product> products, IEnumerable<FridgeProduct> fridgeProducts) =>
             products.Where(p => fridgeProducts.Any(fp => fp.ProductId == p.Id))
             .ToList();
     }

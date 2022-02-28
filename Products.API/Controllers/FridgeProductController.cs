@@ -6,6 +6,7 @@ using Products.Data.DataTransferObject;
 using Products.Data.Models;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Products_API.Controllers
 {
@@ -26,9 +27,9 @@ namespace Products_API.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetFridgeProductsFromFridge(Guid fridgeModelId, Guid fridgeId)
+        public async Task<IActionResult> GetFridgeProductsFromFridge(Guid fridgeModelId, Guid fridgeId)
         {
-            FridgeModel fridgeModelFromDb = _repositoryManager.FridgeModel.GetFridgeModel(fridgeModelId, false);
+            FridgeModel fridgeModelFromDb = await _repositoryManager.FridgeModel.GetFridgeModelAsync(fridgeModelId, false);
 
             if (fridgeModelFromDb == null)
             {
@@ -37,7 +38,7 @@ namespace Products_API.Controllers
                 return NotFound();
             }
 
-            Fridge fridgeFromDb = _repositoryManager.Fridge.GetFridgeById(fridgeModelId, fridgeId, false);
+            Fridge fridgeFromDb = await _repositoryManager.Fridge.GetFridgeByIdAsync(fridgeModelId, fridgeId, false);
             if (fridgeFromDb == null)
             {
                 _logger.LogInformation($"Fridge with id: {fridgeId} doesn't exist in the database.");
@@ -45,7 +46,7 @@ namespace Products_API.Controllers
                 return NotFound();
             }
 
-            IEnumerable<FridgeProduct> fridgeProductFromDb = _repositoryManager.FridgeProduct.GetAllFridgeProducts(fridgeModelId, fridgeId, false);
+            IEnumerable<FridgeProduct> fridgeProductFromDb = await _repositoryManager.FridgeProduct.GetAllFridgeProductsAsync(fridgeModelId, fridgeId, false);
 
             IEnumerable<FridgeProductDto> fridgeProductDto = _mapper.Map<IEnumerable<FridgeProductDto>>(fridgeProductFromDb);
 
@@ -53,9 +54,9 @@ namespace Products_API.Controllers
         }
 
         [HttpGet("{fridgeProductId}", Name = "FridgeProductById")]
-        public IActionResult GetFridgeProductFromFridgeById(Guid fridgeModelId, Guid fridgeId, Guid fridgeProductId)
+        public async Task<IActionResult> GetFridgeProductFromFridgeById(Guid fridgeModelId, Guid fridgeId, Guid fridgeProductId)
         {
-            FridgeModel fridgeModelFromDb = _repositoryManager.FridgeModel.GetFridgeModel(fridgeModelId, false);
+            FridgeModel fridgeModelFromDb = await _repositoryManager.FridgeModel.GetFridgeModelAsync(fridgeModelId, false);
 
             if (fridgeModelFromDb == null)
             {
@@ -64,7 +65,7 @@ namespace Products_API.Controllers
                 return NotFound();
             }
 
-            Fridge fridgeFromDb = _repositoryManager.Fridge.GetFridgeById(fridgeModelId, fridgeId, false);
+            Fridge fridgeFromDb = await _repositoryManager.Fridge.GetFridgeByIdAsync(fridgeModelId, fridgeId, false);
 
             if (fridgeFromDb == null)
             {
@@ -73,7 +74,7 @@ namespace Products_API.Controllers
                 return NotFound();
             }
 
-            FridgeProduct fridgeProductFromDb = _repositoryManager.FridgeProduct.GetFridgeProduct(fridgeModelId, 
+            FridgeProduct fridgeProductFromDb = await _repositoryManager.FridgeProduct.GetFridgeProductAsync(fridgeModelId, 
                 fridgeId, fridgeProductId, false);
 
             if (fridgeProductFromDb == null)
@@ -89,7 +90,7 @@ namespace Products_API.Controllers
         }
         //TODO: add solution about productId
         [HttpPost]
-        public IActionResult CreateFridgeProduct(Guid fridgeModelId, Guid fridgeId, 
+        public async Task<IActionResult> CreateFridgeProduct(Guid fridgeModelId, Guid fridgeId, 
             [FromBody]FridgeProductForCreationDto fridgeProductFromBody)
         {
             if(fridgeProductFromBody == null)
@@ -99,7 +100,7 @@ namespace Products_API.Controllers
                 return BadRequest("FridgeProductForCreationDto object is null.");
             }
 
-            FridgeModel fridgeModelFromDb = _repositoryManager.FridgeModel.GetFridgeModel(fridgeModelId, false);
+            FridgeModel fridgeModelFromDb = await _repositoryManager.FridgeModel.GetFridgeModelAsync(fridgeModelId, false);
 
             if (fridgeModelFromDb == null)
             {
@@ -108,7 +109,7 @@ namespace Products_API.Controllers
                 return NotFound();
             }
 
-            Fridge fridge = _repositoryManager.Fridge.GetFridgeById(fridgeModelId, fridgeId, false);
+            Fridge fridge = await _repositoryManager.Fridge.GetFridgeByIdAsync(fridgeModelId, fridgeId, false);
 
             if(fridge == null)
             {
@@ -120,7 +121,7 @@ namespace Products_API.Controllers
             FridgeProduct fridgeProductEntity = _mapper.Map<FridgeProduct>(fridgeProductFromBody);
 
             _repositoryManager.FridgeProduct.CreateFridgeProduct(fridgeId, fridgeProductEntity);
-            _repositoryManager.Save();
+            await _repositoryManager.SaveAsync();
 
             FridgeProductDto fridgeProductDtoAsResult = _mapper.Map<FridgeProductDto>(fridgeProductEntity);
 
@@ -128,9 +129,9 @@ namespace Products_API.Controllers
         }
 
         [HttpDelete("{fridgeProductId}")]
-        public IActionResult DeleteFridgeProduct(Guid fridgeModelId, Guid fridgeId, Guid fridgeProductId)
+        public async Task<IActionResult> DeleteFridgeProduct(Guid fridgeModelId, Guid fridgeId, Guid fridgeProductId)
         {
-            FridgeModel fridgeModelFromDb = _repositoryManager.FridgeModel.GetFridgeModel(fridgeModelId, false);
+            FridgeModel fridgeModelFromDb = await _repositoryManager.FridgeModel.GetFridgeModelAsync(fridgeModelId, false);
 
             if (fridgeModelFromDb == null)
             {
@@ -139,7 +140,7 @@ namespace Products_API.Controllers
                 return NotFound();
             }
 
-            Fridge fridge = _repositoryManager.Fridge.GetFridgeById(fridgeModelId, fridgeId, false);
+            Fridge fridge = await _repositoryManager.Fridge.GetFridgeByIdAsync(fridgeModelId, fridgeId, false);
 
             if(fridge == null)
             {
@@ -148,7 +149,7 @@ namespace Products_API.Controllers
                 return NotFound();
             }
 
-            FridgeProduct fridgeProduct = _repositoryManager.FridgeProduct.GetFridgeProduct(fridgeModelId, fridgeId, fridgeProductId, false);
+            FridgeProduct fridgeProduct = await _repositoryManager.FridgeProduct.GetFridgeProductAsync(fridgeModelId, fridgeId, fridgeProductId, false);
 
             if(fridgeProduct == null)
             {
@@ -158,13 +159,13 @@ namespace Products_API.Controllers
             }
 
             _repositoryManager.FridgeProduct.DeleteFridgeProduct(fridgeProduct);
-            _repositoryManager.Save();
+            await _repositoryManager.SaveAsync();
 
             return NoContent();
         }
 
         [HttpPut("{fridgeProductId}")]
-        public IActionResult UpdateFridgeProduct(Guid fridgeModelId, Guid fridgeId, Guid fridgeProductId,
+        public async Task<IActionResult> UpdateFridgeProduct(Guid fridgeModelId, Guid fridgeId, Guid fridgeProductId,
             [FromBody]FridgeProductForUpdateDto fridgeProductFromBody)
         {
             if (fridgeProductFromBody == null)
@@ -174,7 +175,7 @@ namespace Products_API.Controllers
                 return BadRequest("FridgeProductForUpdateDto object is null.");
             }
 
-            FridgeModel fridgeModelFromDb = _repositoryManager.FridgeModel.GetFridgeModel(fridgeModelId, false);
+            FridgeModel fridgeModelFromDb = await _repositoryManager.FridgeModel.GetFridgeModelAsync(fridgeModelId, false);
 
             if (fridgeModelFromDb == null)
             {
@@ -183,7 +184,7 @@ namespace Products_API.Controllers
                 return NotFound();
             }
 
-            Fridge fridgeFromDb = _repositoryManager.Fridge.GetFridgeById(fridgeModelId, fridgeId, false);
+            Fridge fridgeFromDb = await _repositoryManager.Fridge.GetFridgeByIdAsync(fridgeModelId, fridgeId, false);
 
             if (fridgeFromDb == null)
             {
@@ -192,7 +193,7 @@ namespace Products_API.Controllers
                 return NotFound();
             }
 
-            FridgeProduct fridgeProductFromDb = _repositoryManager.FridgeProduct.GetFridgeProduct(fridgeModelId,
+            FridgeProduct fridgeProductFromDb = await _repositoryManager.FridgeProduct.GetFridgeProductAsync(fridgeModelId,
                 fridgeId, fridgeProductId, true);
 
             if (fridgeProductFromDb == null)
@@ -203,15 +204,15 @@ namespace Products_API.Controllers
             }
 
             _mapper.Map(fridgeProductFromBody, fridgeProductFromDb);
-            _repositoryManager.Save();
+            await _repositoryManager.SaveAsync();
 
             return NoContent();
         }
 
         [HttpGet("AddDefaultQuantity")]
-        public IActionResult AddDefaultQuantityForProductsWithZeroQuantity(Guid fridgeModelId, Guid fridgeId)
+        public async Task<IActionResult> AddDefaultQuantityForProductsWithZeroQuantity(Guid fridgeModelId, Guid fridgeId)
         {
-            FridgeModel fridgeModelFromDb = _repositoryManager.FridgeModel.GetFridgeModel(fridgeModelId, false);
+            FridgeModel fridgeModelFromDb = await _repositoryManager.FridgeModel.GetFridgeModelAsync(fridgeModelId, false);
 
             if (fridgeModelFromDb == null)
             {
@@ -220,7 +221,7 @@ namespace Products_API.Controllers
                 return NotFound();
             }
 
-            Fridge fridgeFromDb = _repositoryManager.Fridge.GetFridgeById(fridgeModelId, fridgeId, false);
+            Fridge fridgeFromDb = await _repositoryManager.Fridge.GetFridgeByIdAsync(fridgeModelId, fridgeId, false);
             if (fridgeFromDb == null)
             {
                 _logger.LogInformation($"Fridge with id: {fridgeId} doesn't exist in the database.");
@@ -229,9 +230,9 @@ namespace Products_API.Controllers
             }
 
             IEnumerable<FridgeProduct> fridgeProductsWithZeroQuantity 
-                = _repositoryManager.FridgeProduct.GetFridgeProductsWithZeroQuantity(true);
+                = await _repositoryManager.FridgeProduct.GetFridgeProductsWithZeroQuantityAsync(true);
 
-            IEnumerable<Product> productsFromDb = _repositoryManager.Product.GetAllProducts(false);
+            IEnumerable<Product> productsFromDb = await _repositoryManager.Product.GetAllProductsAsync(false);
 
             IEnumerable<Product> productsFromFridgeProductsWithZeroQuantity
                 = _repositoryManager.Product.GetProductsFromFridgeProducts(productsFromDb, fridgeProductsWithZeroQuantity);
@@ -239,7 +240,7 @@ namespace Products_API.Controllers
             _repositoryManager.FridgeProduct.InitialiseQuantityByDefaultQuantity(ref fridgeProductsWithZeroQuantity,
                 productsFromFridgeProductsWithZeroQuantity);
 
-            _repositoryManager.Save();
+            await _repositoryManager.SaveAsync();
 
             return NoContent();
         }

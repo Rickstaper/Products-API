@@ -13,6 +13,6 @@ namespace Products.Contracts
         IFridgeProductRepository FridgeProduct { get; }
         IFridgeRepository Fridge { get; }
         IProductRepository Product { get; }
-        void Save();
+        Task SaveAsync();
     }
 }

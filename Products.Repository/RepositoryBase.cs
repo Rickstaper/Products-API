@@ -33,5 +33,13 @@ namespace Products.Repository
             .AsNoTracking() :
             ProductsContext.Set<T>()
             .Where(expression);
+
+        public IQueryable<T> FindByStoredProcedure(string storedProcedure, bool trackChanges) =>
+            !trackChanges ?
+            ProductsContext.Set<T>()
+            .FromSqlRaw(storedProcedure)
+            .AsNoTracking() :
+            ProductsContext.Set<T>()
+            .FromSqlRaw(storedProcedure);
     }
 }

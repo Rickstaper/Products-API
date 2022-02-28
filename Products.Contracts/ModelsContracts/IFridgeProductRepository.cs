@@ -9,15 +9,15 @@ namespace Products.Contracts.ModelsContracts
 {
     public interface IFridgeProductRepository
     {
-        IEnumerable<FridgeProduct> GetAllFridgeProducts(Guid fridgeModelId, Guid fridgeId, bool trackChanges);
+        Task<IEnumerable<FridgeProduct>> GetAllFridgeProductsAsync(Guid fridgeModelId, Guid fridgeId, bool trackChanges);
 
-        FridgeProduct GetFridgeProduct(Guid fridgeModelId, Guid fridgeId, Guid fridgeProductId, bool trackChanges);
+        Task<FridgeProduct> GetFridgeProductAsync(Guid fridgeModelId, Guid fridgeId, Guid fridgeProductId, bool trackChanges);
 
         void CreateFridgeProduct(Guid fridgeId, FridgeProduct fridgeProduct);
 
         void DeleteFridgeProduct(FridgeProduct fridgeProduct);
 
-        IEnumerable<FridgeProduct> GetFridgeProductsWithZeroQuantity(bool tackChanges);
+        Task<IEnumerable<FridgeProduct>> GetFridgeProductsWithZeroQuantityAsync(bool tackChanges);
 
         void InitialiseQuantityByDefaultQuantity(ref IEnumerable<FridgeProduct> fridgeProducts, IEnumerable<Product> products);
     }
