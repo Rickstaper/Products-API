@@ -5,8 +5,10 @@ using Microsoft.Extensions.Logging;
 using Products.Contracts;
 using Products.Data.DataTransferObject;
 using Products.Data.Models;
+using Products_API.ModelBinder;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Products_API.Controllers
@@ -89,7 +91,7 @@ namespace Products_API.Controllers
 
             return Ok(fridgeProductDto);
         }
-        //TODO: add solution about productId
+        
         [HttpPost]
         public async Task<IActionResult> CreateFridgeProduct(Guid fridgeModelId, Guid fridgeId, 
             [FromBody]FridgeProductForCreationDto fridgeProductFromBody)
@@ -246,6 +248,90 @@ namespace Products_API.Controllers
             return NoContent();
         }
 
-        //TODO: create for collection (the ninetieth page)
+        [HttpGet("collection/{ids}", Name = "FridgeProductsCollection")]
+        public async Task<IActionResult> GetFridgeProductCollection([ModelBinder(BinderType = typeof(ArrayModelBinder))] Guid fridgeModelId, Guid fridgeId, IEnumerable<Guid> ids)
+        {
+            FridgeModel fridgeModelFromDb = await _repositoryManager.FridgeModel.GetFridgeModelAsync(fridgeModelId, false);
+
+            if (fridgeModelFromDb == null)
+            {
+                _logger.LogInformation($"FridgeModel with id: {fridgeModelId} doesn't exist in the database.");
+
+                return NotFound();
+            }
+
+            Fridge fridgeFromDb = await _repositoryManager.Fridge.GetFridgeByIdAsync(fridgeModelId, fridgeId, false);
+            if (fridgeFromDb == null)
+            {
+                _logger.LogInformation($"Fridge with id: {fridgeId} doesn't exist in the database.");
+
+                return NotFound();
+            }
+
+            if(ids == null)
+            {
+                _logger.LogError("Parameter ids is null.");
+
+                return BadRequest("Parameter ids is null.");
+            }
+
+            IEnumerable<FridgeProduct> fridgeProductsFromDb = await _repositoryManager.FridgeProduct.GetByIds(fridgeModelId, fridgeId, ids, false); 
+
+            if(ids.Count() != fridgeProductsFromDb.Count())
+            {
+                _logger.LogError("Some ids are not valid in a collection");
+
+                return NotFound();
+            }
+
+            IEnumerable<FridgeProductDto> fridgeProductsToReturn = _mapper.Map<IEnumerable<FridgeProductDto>>(fridgeProductsFromDb);
+
+            return Ok(fridgeProductsToReturn);
+         }
+
+        [HttpPost("collection")]
+        public async Task<IActionResult> CreateFridgeProductsCollection(Guid fridgeModelId, Guid fridgeId,
+            [FromBody] IEnumerable<FridgeProductForCreationDto> fridgeProductsFromBody)
+        {
+            if (fridgeProductsFromBody == null)
+            {
+                _logger.LogError($"FridgeProductForCreationDto object sent from client is null.");
+
+                return BadRequest("FridgeProductForCreationDto object is null.");
+            }
+
+            FridgeModel fridgeModelFromDb = await _repositoryManager.FridgeModel.GetFridgeModelAsync(fridgeModelId, false);
+
+            if (fridgeModelFromDb == null)
+            {
+                _logger.LogInformation($"FridgeModel with id: {fridgeModelId} doesn't exist in the database.");
+
+                return NotFound();
+            }
+
+            Fridge fridge = await _repositoryManager.Fridge.GetFridgeByIdAsync(fridgeModelId, fridgeId, false);
+
+            if (fridge == null)
+            {
+                _logger.LogInformation($"Fridge with id: {fridgeId} doesn't exist in the database.");
+
+                return NotFound();
+            }
+
+            IEnumerable<FridgeProduct> fridgeProductsEntity = _mapper.Map<IEnumerable<FridgeProduct>>(fridgeProductsFromBody);
+
+            foreach(FridgeProduct fridgeProduct in fridgeProductsEntity)
+            {
+                _repositoryManager.FridgeProduct.CreateFridgeProduct(fridgeId, fridgeProduct);
+            }
+
+            await _repositoryManager.SaveAsync();
+
+            IEnumerable<FridgeProductDto> fridgeProductsToReturn = _mapper.Map<IEnumerable<FridgeProductDto>>(fridgeProductsEntity);
+
+            string ids = string.Join(",", fridgeProductsToReturn.Select(fpd => fpd.Id));
+
+            return CreatedAtRoute("FridgeProductsCollection", new { fridgeModelId, fridgeId, ids }, fridgeProductsToReturn);
+        }
     }
 }

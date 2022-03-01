@@ -55,5 +55,10 @@ namespace Products.Repository.ModelsRepository
                 }).ToList();
             }
         }
+
+        public async Task<IEnumerable<FridgeProduct>> GetByIds(Guid fridgeModelId, Guid fridgeId, IEnumerable<Guid> ids, bool trackChanges) =>
+            await FindByCondition(fp => ids.Contains(fp.Id) && fp.Fridge.FridgeModelId.Equals(fridgeModelId)
+            && fp.FridgeId.Equals(fridgeId), trackChanges)
+            .ToListAsync();
     }
 }

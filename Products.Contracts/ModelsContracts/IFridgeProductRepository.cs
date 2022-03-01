@@ -13,6 +13,8 @@ namespace Products.Contracts.ModelsContracts
 
         Task<FridgeProduct> GetFridgeProductAsync(Guid fridgeModelId, Guid fridgeId, Guid fridgeProductId, bool trackChanges);
 
+        Task<IEnumerable<FridgeProduct>> GetByIds(Guid fridgeModelId, Guid fridgeId, IEnumerable<Guid> ids, bool trackChanges);
+
         void CreateFridgeProduct(Guid fridgeId, FridgeProduct fridgeProduct);
 
         void DeleteFridgeProduct(FridgeProduct fridgeProduct);
