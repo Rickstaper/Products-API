@@ -24,6 +24,20 @@ namespace Products.Data.Configuration
                         Quantity = 1,
                         ProductId = new Guid("3d490a70-94ce-4d15-9494-5248280c2ce3"),
                         FridgeId = new Guid("5a572a70-94ce-4d15-9494-5248280c2ce3")
+                    },
+                    new FridgeProduct
+                    {
+                        Id = new Guid("3a130a10-22ce-4d15-9494-5248780c2ce1"),
+                        Quantity = 0,
+                        ProductId = new Guid("9f490a70-94ce-4d15-9494-5248280c2ce3"),
+                        FridgeId = new Guid("5a572a70-94ce-4d15-9494-5248280c2ce3")
+                    },
+                    new FridgeProduct
+                    {
+                        Id = new Guid("3b130a10-22ce-4d15-9494-5248780c2ce1"),
+                        Quantity = 0,
+                        ProductId = new Guid("9f490a70-94ce-4d15-9494-5248280c2ce3"),
+                        FridgeId = new Guid("5a572a70-94ce-4d15-9494-5248280c2ce3")
                     }
                 );
         }

@@ -1,0 +1,356 @@
+{
+	"info": {
+		"_postman_id": "06106cb8-7b7a-4527-b80c-921439f8159f",
+		"name": "Products.API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GetFridgeModelById",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:5001/api/fridgeModels/5f390a10-94ce-4d15-9494-5248780c2ce3",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"fridgeModels",
+						"5f390a10-94ce-4d15-9494-5248780c2ce3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetFridges",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:5001/api/fridgeModels/5f390a10-94ce-4d15-9494-5248780c2ce3/fridges",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"fridgeModels",
+						"5f390a10-94ce-4d15-9494-5248780c2ce3",
+						"fridges"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetFridgeById",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:5001/api/fridgeModels/5f390a10-94ce-4d15-9494-5248780c2ce3/fridges/6b572a70-94ce-4d15-9494-5248280c2ce3",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"fridgeModels",
+						"5f390a10-94ce-4d15-9494-5248780c2ce3",
+						"fridges",
+						"6b572a70-94ce-4d15-9494-5248280c2ce3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetProducts",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:5001/api/products",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetFridgeProducts",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiUmlja3N0YXBlciIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6Ik93bmVyIiwiZXhwIjoxNjQ2MTE5OTUwLCJpc3MiOiJDb2RlTWF6ZUFQSSIsImF1ZCI6Imh0dHBzOi8vbG9jYWxob3N0OjUwMDEifQ.enFPFmqPhB9ynYUhkwN04GL1r6lW0yKXDp-wlFbTfpo",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:5001/api/fridgeModels/5f390a10-94ce-4d15-9494-5248780c2ce3/fridges/6b572a70-94ce-4d15-9494-5248280c2ce3/fridgeProducts",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"fridgeModels",
+						"5f390a10-94ce-4d15-9494-5248780c2ce3",
+						"fridges",
+						"6b572a70-94ce-4d15-9494-5248280c2ce3",
+						"fridgeProducts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateFridgeProduct",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"Quantity\": 1,\r\n    \"ProductUd\": \"9f490a70-94ce-4d15-9494-5248280c2ce3\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:5001/api/fridgeModels/5f390a10-94ce-4d15-9494-5248780c2ce3/fridges/6b572a70-94ce-4d15-9494-5248280c2ce3/fridgeProducts",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"fridgeModels",
+						"5f390a10-94ce-4d15-9494-5248780c2ce3",
+						"fridges",
+						"6b572a70-94ce-4d15-9494-5248280c2ce3",
+						"fridgeProducts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateFridgeProduct",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"Quantity\": 13\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:5001/api/fridgeModels/5f390a10-94ce-4d15-9494-5248780c2ce3/fridges/6b572a70-94ce-4d15-9494-5248280c2ce3/fridgeProducts/7f330a10-22ce-4d15-9494-5248780c2ce1",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"fridgeModels",
+						"5f390a10-94ce-4d15-9494-5248780c2ce3",
+						"fridges",
+						"6b572a70-94ce-4d15-9494-5248280c2ce3",
+						"fridgeProducts",
+						"7f330a10-22ce-4d15-9494-5248780c2ce1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteFirdgeProduct",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:5001/api/fridgeModels/5f390a10-94ce-4d15-9494-5248780c2ce3/fridges/6b572a70-94ce-4d15-9494-5248280c2ce3/fridgeProducts/7f330a10-22ce-4d15-9494-5248780c2ce1",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"fridgeModels",
+						"5f390a10-94ce-4d15-9494-5248780c2ce3",
+						"fridges",
+						"6b572a70-94ce-4d15-9494-5248280c2ce3",
+						"fridgeProducts",
+						"7f330a10-22ce-4d15-9494-5248780c2ce1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\":\"Pupkin\",\r\n    \"password\": \"111122223333\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:5001/api/authentication/login",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"authentication",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateOwnerUser",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\": \"Artem\",\r\n    \"lastname\": \"Pupkin\",\r\n    \"username\": \"Pupkin\",\r\n    \"password\": \"111122223333\",\r\n    \"email\": \"pupkin@gmail.com\",\r\n    \"phoneNumber\": \"444-444\",\r\n    \"roles\": [\r\n        \"Owner\"\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:5001/api/authentication",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"authentication"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateGuestUser",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\": \"Denis\",\r\n    \"lastname\": \"Denisov\",\r\n    \"username\": \"Denis\",\r\n    \"password\": \"12345678910\",\r\n    \"email\": \"denchik@gmail.com\",\r\n    \"phoneNumber\": \"111-111\",\r\n    \"roles\": [\r\n        \"Guest\"\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:5001/api/authentication",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"authentication"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UploadProductImage",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:5001/api/products/3d490a70-94ce-4d15-9494-5248280c2ce3/uploadImage",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"products",
+						"3d490a70-94ce-4d15-9494-5248280c2ce3",
+						"uploadImage"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AddDefaultQuantityForProductsWithZeroQuantity",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:5001/api/fridgeModels/5f390a10-94ce-4d15-9494-5248780c2ce3/fridges/6b572a70-94ce-4d15-9494-5248280c2ce3/fridgeProducts/AddDefaultQuantity",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"fridgeModels",
+						"5f390a10-94ce-4d15-9494-5248780c2ce3",
+						"fridges",
+						"6b572a70-94ce-4d15-9494-5248280c2ce3",
+						"fridgeProducts",
+						"AddDefaultQuantity"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

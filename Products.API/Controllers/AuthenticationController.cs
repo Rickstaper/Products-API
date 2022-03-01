@@ -5,7 +5,6 @@ using Microsoft.Extensions.Logging;
 using Products.Contracts.AuthenticationContracts;
 using Products.Data.DataTransferObject.AuthenticationDto;
 using Products.Data.Models.IdentityModels;
-using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 
 namespace Products_API.Controllers
