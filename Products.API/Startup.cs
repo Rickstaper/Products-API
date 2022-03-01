@@ -31,9 +31,10 @@ namespace Products_API
 
             services.AddAuthentication();
             services.ConfigureIdentity();
+            services.ConfigureJWT(Configuration);
 
             services.ConfigureSqlContext(Configuration);
-            services.ConfigureRepositoryManager();
+            services.ConfigureDependencyInjection();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

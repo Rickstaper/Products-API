@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Products.Contracts;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 namespace Products_API.Controllers
 {
     [ApiController]
-    [Route("api/fridgeModels/{fridgeModelId}/fridges/{fridgeId}/fridgeProducts")]
+    [Route("api/fridgeModels/{fridgeModelId}/fridges/{fridgeId}/fridgeProducts"), Authorize]
     public class FridgeProductController : ControllerBase
     {
         private readonly IRepositoryManager _repositoryManager;

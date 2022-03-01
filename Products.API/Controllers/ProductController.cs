@@ -40,7 +40,7 @@ namespace Products_API.Controllers
         [HttpPost("{productId}/uploadImage")]
         public async Task<IActionResult> UploadImage(Guid productId)
         {
-            byte[] imageByteArray = FileUtility.GetImageByteArray("Kinder.jpg");
+            byte[] imageByteArray = FileHandler.GetImageByteArray("Kinder.jpg");
 
             Product productFromDb = await _repositoryManager.Product.GetProductByIdAsync(productId, true);
 
