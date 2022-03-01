@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 using Products.Contracts.AuthenticationContracts;
 using Products.Data.DataTransferObject.AuthenticationDto;
 using Products.Data.Models.IdentityModels;
+using Products_API.Utils.ActionFilters;
 using System.Threading.Tasks;
 
 namespace Products_API.Controllers
@@ -28,6 +29,7 @@ namespace Products_API.Controllers
         }
 
         [HttpPost]
+        [ServiceFilter(typeof(ValidationFilterAttribute))]
         public async Task<IActionResult> RegirsterUser([FromBody] UserForRegistrationDto userFromBody)
         {
             if(userFromBody == null)
@@ -56,6 +58,7 @@ namespace Products_API.Controllers
         }
 
         [HttpPost("login")]
+        [ServiceFilter(typeof(ValidationFilterAttribute))]
         public async Task<IActionResult> Authenticate([FromBody] UserForAuthenticationDto userFromBody)
         {
             if(!await _authenticationManager.ValidateUser(userFromBody))

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Products.Data;
 
 namespace Products_API.Migrations
 {
     [DbContext(typeof(ProductsContext))]
-    partial class ProductsContextModelSnapshot : ModelSnapshot
+    [Migration("20220301154015_FixedNameOfProductId")]
+    partial class FixedNameOfProductId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,15 +50,15 @@ namespace Products_API.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "481940e0-2ecd-40cf-af85-76c2bc7ef4a2",
-                            ConcurrencyStamp = "8d65f300-e5c9-4d37-ac8c-1e187c3da3d0",
+                            Id = "3463f783-7555-452e-9c54-b6d35486b716",
+                            ConcurrencyStamp = "73849494-d849-4879-a888-ae0dda971845",
                             Name = "Owner",
                             NormalizedName = "OWNER"
                         },
                         new
                         {
-                            Id = "0e672d87-cfe5-495a-a215-0d4c9716535e",
-                            ConcurrencyStamp = "49c3ec49-dd48-4667-818a-6899a04cd805",
+                            Id = "39f03057-7363-479b-aea8-d286e6d7e8c9",
+                            ConcurrencyStamp = "4b1450bf-1648-484a-8046-4e912a132dc3",
                             Name = "Guest",
                             NormalizedName = "GUEST"
                         });

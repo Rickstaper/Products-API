@@ -128,7 +128,8 @@ namespace Products_API.Controllers
 
             FridgeProductDto fridgeProductDtoAsResult = _mapper.Map<FridgeProductDto>(fridgeProductEntity);
 
-            return CreatedAtRoute("FridgeProductById", new { fridgeModelId, fridgeId, fridgeProductId = fridgeProductDtoAsResult.Id }, fridgeProductDtoAsResult);
+            return CreatedAtRoute("FridgeProductById", new { fridgeModelId, fridgeId, fridgeProductId = fridgeProductDtoAsResult.Id },
+                fridgeProductDtoAsResult);
         }
 
         [HttpDelete("{fridgeProductId}")]

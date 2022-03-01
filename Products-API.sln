@@ -7,9 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Products.API", "Products.AP
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Products.Data", "Products.Data\Products.Data.csproj", "{6EBF6C5E-CCCB-4F53-8DF9-9B983EF5794D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Products.Contracts", "Products.Contracts\Products.Contracts.csproj", "{B77D1B41-9502-478B-8012-333C005EAE2F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Products.Contracts", "Products.Contracts\Products.Contracts.csproj", "{B77D1B41-9502-478B-8012-333C005EAE2F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Products.Repository", "Products.Repository\Products.Repository.csproj", "{80601B18-9780-4168-8DF4-43811842DB17}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Products.Repository", "Products.Repository\Products.Repository.csproj", "{80601B18-9780-4168-8DF4-43811842DB17}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Products.Tests", "Products.Tests\Products.Tests.csproj", "{66170858-CAD9-4A2E-BD3E-258FE6F2067B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{80601B18-9780-4168-8DF4-43811842DB17}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{80601B18-9780-4168-8DF4-43811842DB17}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{80601B18-9780-4168-8DF4-43811842DB17}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66170858-CAD9-4A2E-BD3E-258FE6F2067B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66170858-CAD9-4A2E-BD3E-258FE6F2067B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66170858-CAD9-4A2E-BD3E-258FE6F2067B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66170858-CAD9-4A2E-BD3E-258FE6F2067B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

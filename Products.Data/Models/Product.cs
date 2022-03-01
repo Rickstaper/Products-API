@@ -12,6 +12,7 @@ namespace Products.Data.Models
     [Table("products")]
     public class Product
     {
+        [Column("ProductId")]
         public Guid Id { get; set; }
 
         [Required(ErrorMessage = "Fridge model name is required field.")]

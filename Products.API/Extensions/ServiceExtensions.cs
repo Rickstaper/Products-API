@@ -11,6 +11,7 @@ using Products.Data;
 using Products.Data.Models.IdentityModels;
 using Products.Repository;
 using Products_API.Utils;
+using Products_API.Utils.ActionFilters;
 using System;
 using System.Text;
 
@@ -28,6 +29,7 @@ namespace Products_API.Extensions
         {
             services.AddScoped<IRepositoryManager, RepositoryManager>();
             services.AddScoped<IAuthenticationManager, AuthenticationManager>();
+            services.AddScoped<ValidationFilterAttribute>();
         }
 
         public static void ConfigureIdentity(this IServiceCollection services)
