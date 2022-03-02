@@ -46,7 +46,7 @@ namespace Products_API.Controllers
         }
 
         [HttpGet("{fridgeId}")]
-        public async Task<IActionResult> GetFridgeById(Guid fridgeModelId, Guid fridgeId)
+        public async Task<IActionResult> GetFridgeByIdAsync(Guid fridgeModelId, Guid fridgeId)
         {
             FridgeModel fridgeModelFromDb = await _repositoryManager.FridgeModel.GetFridgeModelAsync(fridgeModelId, false);
 
