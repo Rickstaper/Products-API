@@ -118,8 +118,8 @@ namespace Products.Tests.TestsControllers
             Assert.IsNotNull(fridgesResult, "okResult.Value as FridgeDto object is null.");
 
             Assert.AreEqual(fridge.Id, fridgesResult.Where(fr => fr.Id.Equals(fridge.Id)).SingleOrDefault().Id, "Id of fridgesResult isn't id of fridge.");
-            Assert.AreEqual(fridge.Name, fridgesResult.Where(fr => fr.Name.Equals(fridge.Name)).SingleOrDefault().Name, "Name of fridgesResult isn't name of fridge.");
-            Assert.AreEqual(fridge.OwnerName, fridgesResult.Where(fr => fr.OwnerName.Equals(fridge.OwnerName)).SingleOrDefault().OwnerName, "OwnerName of fridgesResult isn't OwnerName of fridge.");
+            Assert.AreEqual(fridge.Name, fridgesResult.Where(fr => fr.Id.Equals(fridge.Id)).SingleOrDefault().Name, "Name of fridgesResult isn't name of fridge.");
+            Assert.AreEqual(fridge.OwnerName, fridgesResult.Where(fr => fr.Id.Equals(fridge.Id)).SingleOrDefault().OwnerName, "OwnerName of fridgesResult isn't OwnerName of fridge.");
         }
 
         /// <summary>
@@ -203,6 +203,10 @@ namespace Products.Tests.TestsControllers
             Assert.AreEqual(fridge.OwnerName, fridgeResult.OwnerName, "OwnerName of fridgeResult isn't OwnerName of fridge.");
         }
 
+        /// <summary>
+        /// Method for get source fridges
+        /// </summary>
+        /// <returns>IEnumerable of fridges</returns>
         private static IEnumerable<Fridge> GetFridges()
         {
             yield return new Fridge

@@ -30,7 +30,7 @@ namespace Products_API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetFridgeProductsFromFridge(Guid fridgeModelId, Guid fridgeId)
+        public async Task<IActionResult> GetFridgeProductsFromFridgeAsync(Guid fridgeModelId, Guid fridgeId)
         {
             FridgeModel fridgeModelFromDb = await _repositoryManager.FridgeModel.GetFridgeModelAsync(fridgeModelId, false);
 
@@ -57,7 +57,7 @@ namespace Products_API.Controllers
         }
 
         [HttpGet("{fridgeProductId}", Name = "FridgeProductById")]
-        public async Task<IActionResult> GetFridgeProductFromFridgeById(Guid fridgeModelId, Guid fridgeId, Guid fridgeProductId)
+        public async Task<IActionResult> GetFridgeProductFromFridgeByIdAsync(Guid fridgeModelId, Guid fridgeId, Guid fridgeProductId)
         {
             FridgeModel fridgeModelFromDb = await _repositoryManager.FridgeModel.GetFridgeModelAsync(fridgeModelId, false);
 
@@ -93,7 +93,7 @@ namespace Products_API.Controllers
         }
         
         [HttpPost]
-        public async Task<IActionResult> CreateFridgeProduct(Guid fridgeModelId, Guid fridgeId, 
+        public async Task<IActionResult> CreateFridgeProductAsync(Guid fridgeModelId, Guid fridgeId, 
             [FromBody]FridgeProductForCreationDto fridgeProductFromBody)
         {
             if(fridgeProductFromBody == null)
@@ -133,7 +133,7 @@ namespace Products_API.Controllers
         }
 
         [HttpDelete("{fridgeProductId}")]
-        public async Task<IActionResult> DeleteFridgeProduct(Guid fridgeModelId, Guid fridgeId, Guid fridgeProductId)
+        public async Task<IActionResult> DeleteFridgeProductAsync(Guid fridgeModelId, Guid fridgeId, Guid fridgeProductId)
         {
             FridgeModel fridgeModelFromDb = await _repositoryManager.FridgeModel.GetFridgeModelAsync(fridgeModelId, false);
 
@@ -169,7 +169,7 @@ namespace Products_API.Controllers
         }
 
         [HttpPut("{fridgeProductId}")]
-        public async Task<IActionResult> UpdateFridgeProduct(Guid fridgeModelId, Guid fridgeId, Guid fridgeProductId,
+        public async Task<IActionResult> UpdateFridgeProductAsync(Guid fridgeModelId, Guid fridgeId, Guid fridgeProductId,
             [FromBody]FridgeProductForUpdateDto fridgeProductFromBody)
         {
             if (fridgeProductFromBody == null)
@@ -214,7 +214,7 @@ namespace Products_API.Controllers
         }
 
         [HttpGet("AddDefaultQuantity")]
-        public async Task<IActionResult> AddDefaultQuantityForProductsWithZeroQuantity(Guid fridgeModelId, Guid fridgeId)
+        public async Task<IActionResult> AddDefaultQuantityForProductsWithZeroQuantityAsync(Guid fridgeModelId, Guid fridgeId)
         {
             FridgeModel fridgeModelFromDb = await _repositoryManager.FridgeModel.GetFridgeModelAsync(fridgeModelId, false);
 
@@ -250,7 +250,7 @@ namespace Products_API.Controllers
         }
 
         [HttpGet("collection/{ids}", Name = "FridgeProductsCollection")]
-        public async Task<IActionResult> GetFridgeProductCollection([ModelBinder(BinderType = typeof(ArrayModelBinder))] Guid fridgeModelId, Guid fridgeId, IEnumerable<Guid> ids)
+        public async Task<IActionResult> GetFridgeProductCollectionAsync([ModelBinder(BinderType = typeof(ArrayModelBinder))] Guid fridgeModelId, Guid fridgeId, IEnumerable<Guid> ids)
         {
             FridgeModel fridgeModelFromDb = await _repositoryManager.FridgeModel.GetFridgeModelAsync(fridgeModelId, false);
 
@@ -291,7 +291,7 @@ namespace Products_API.Controllers
          }
 
         [HttpPost("collection")]
-        public async Task<IActionResult> CreateFridgeProductsCollection(Guid fridgeModelId, Guid fridgeId,
+        public async Task<IActionResult> CreateFridgeProductsCollectionAsync(Guid fridgeModelId, Guid fridgeId,
             [FromBody] IEnumerable<FridgeProductForCreationDto> fridgeProductsFromBody)
         {
             if (fridgeProductsFromBody == null)
