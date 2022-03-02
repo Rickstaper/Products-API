@@ -92,6 +92,94 @@
 			"response": []
 		},
 		{
+			"name": "CreateOwnerUser",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\": \"Artem\",\r\n    \"lastname\": \"Pupkin\",\r\n    \"username\": \"Pupkin\",\r\n    \"password\": \"111122223333\",\r\n    \"email\": \"pupkin@gmail.com\",\r\n    \"phoneNumber\": \"444-444\",\r\n    \"roles\": [\r\n        \"Owner\"\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:5001/api/authentication",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"authentication"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateGuestUser",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\": \"Denis\",\r\n    \"lastname\": \"Denisov\",\r\n    \"username\": \"Denis\",\r\n    \"password\": \"12345678910\",\r\n    \"email\": \"denchik@gmail.com\",\r\n    \"phoneNumber\": \"111-111\",\r\n    \"roles\": [\r\n        \"Guest\"\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:5001/api/authentication",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"authentication"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\":\"Pupkin\",\r\n    \"password\": \"111122223333\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:5001/api/authentication/login",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"authentication",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "GetFridgeProducts",
 			"request": {
 				"auth": {
@@ -212,94 +300,6 @@
 						"6b572a70-94ce-4d15-9494-5248280c2ce3",
 						"fridgeProducts",
 						"7f330a10-22ce-4d15-9494-5248780c2ce1"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Login",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"username\":\"Pupkin\",\r\n    \"password\": \"111122223333\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "https://localhost:5001/api/authentication/login",
-					"protocol": "https",
-					"host": [
-						"localhost"
-					],
-					"port": "5001",
-					"path": [
-						"api",
-						"authentication",
-						"login"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "CreateOwnerUser",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"firstName\": \"Artem\",\r\n    \"lastname\": \"Pupkin\",\r\n    \"username\": \"Pupkin\",\r\n    \"password\": \"111122223333\",\r\n    \"email\": \"pupkin@gmail.com\",\r\n    \"phoneNumber\": \"444-444\",\r\n    \"roles\": [\r\n        \"Owner\"\r\n    ]\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "https://localhost:5001/api/authentication",
-					"protocol": "https",
-					"host": [
-						"localhost"
-					],
-					"port": "5001",
-					"path": [
-						"api",
-						"authentication"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "CreateGuestUser",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"firstName\": \"Denis\",\r\n    \"lastname\": \"Denisov\",\r\n    \"username\": \"Denis\",\r\n    \"password\": \"12345678910\",\r\n    \"email\": \"denchik@gmail.com\",\r\n    \"phoneNumber\": \"111-111\",\r\n    \"roles\": [\r\n        \"Guest\"\r\n    ]\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "https://localhost:5001/api/authentication",
-					"protocol": "https",
-					"host": [
-						"localhost"
-					],
-					"port": "5001",
-					"path": [
-						"api",
-						"authentication"
 					]
 				}
 			},
